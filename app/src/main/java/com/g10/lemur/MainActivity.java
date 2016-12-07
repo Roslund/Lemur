@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.g10.lemur.Decibel.Decibel;
 import com.g10.lemur.Vision.Vision;
 
 public class MainActivity extends AppCompatActivity
@@ -87,7 +88,11 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.menuVision)
+        if (id == R.id.menuHome)
+        {
+
+        }
+        else if (id == R.id.menuVision)
         {
             // Go to Google Vision
             intent = new Intent(this, Vision.class);
@@ -104,6 +109,8 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.menuSound)
         {
             // Go to decibel
+            intent = new Intent(this, Decibel.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuHelp)
         {

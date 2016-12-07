@@ -1,4 +1,4 @@
-package com.g10.lemur.Vision;
+package com.g10.lemur.Decibel;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,18 +11,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.g10.lemur.Decibel.Decibel;
 import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
+import com.g10.lemur.Vision.Vision;
 
-public class Vision extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class Decibel extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vision);
+        setContentView(R.layout.activity_decibel);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,7 +35,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        navigationView.setCheckedItem(R.id.menuVision);
+        navigationView.setCheckedItem(R.id.menuSound);
     }
 
     @Override
@@ -75,7 +75,8 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         }
         else if (id == R.id.menuVision)
         {
-
+            intent = new Intent(this, Vision.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuAlti)
         {
@@ -88,8 +89,6 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         else if (id == R.id.menuSound)
         {
             // Go to decibel
-            intent = new Intent(this, Decibel.class);
-            startActivity(intent);
         }
         else if (id == R.id.menuHelp)
         {
@@ -104,5 +103,4 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }

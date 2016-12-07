@@ -23,6 +23,11 @@
             android:label="@string/title_activity_vision"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".Decibel.Decibel"
+            android:label="@string/title_activity_decibel"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
