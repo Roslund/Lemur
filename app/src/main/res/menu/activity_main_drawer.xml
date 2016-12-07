@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    This file contains the main menu options.
+    The file does NOT contain the menu styling.
+
+-->
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/menuGroupHome">
+
+        <item
+            android:id="@+id/menuHome"
+            android:title="Home"/>
+    </group>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/menuMainGroup">
+
+        <item
+            android:id="@+id/menuVision"
+            android:title="Vision"/>
+        <item
+            android:id="@+id/menuAlti"
+            android:title="Altimeter"/>
+        <item
+            android:id="@+id/menuAcc"
+            android:title="Accelerometer "/>
+        <item
+            android:id="@+id/menuSound"
+            android:title="Decibel"/>
+    </group>
+
+    <group
+        android:id="@+id/menuSettingsGroup"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menuHelp"
+            android:title="Help"/>
+        <item
+            android:id="@+id/menuSettings"
+            android:title="Settings"/>
+    </group>
+
+</menu>
