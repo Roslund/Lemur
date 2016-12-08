@@ -2,8 +2,10 @@ package com.g10.lemur.Vision;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -28,10 +30,10 @@ import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
 import com.g10.lemur.Vision.dummy.DummyContent;
 
-public class Vision extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener
+public class Vision extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener, VisionMainFragment.OnFragmentInteractionListener
 {
     NavigationView navigationView;
-    ItemFragment fragment;
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,7 +56,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = new ItemFragment();
+        fragment = new VisionMainFragment();
         fragmentTransaction.add(R.id.your_placeholder, fragment);
         fragmentTransaction.commit();
     }
@@ -89,6 +91,21 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
     public void onListFragmentInteraction(DummyContent.DummyItem item)
     {
         Toast.makeText(this, "hej", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Toast.makeText(this, "fragz", Toast.LENGTH_SHORT).show();
+    }
+
+    protected void newFrag(View view)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragment = new ItemFragment();
+        fragmentTransaction.add(R.id.your_placeholder, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
