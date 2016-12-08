@@ -40,7 +40,7 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
         navigationView.setNavigationItemSelectedListener(this);
 
         // Set the current activity as marked in the menu
-        navigationView.setCheckedItem(R.id.menuHome);
+        navigationView.setCheckedItem(R.id.menuSettings);
     }
 
     @Override
