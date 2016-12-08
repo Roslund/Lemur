@@ -13,22 +13,28 @@
         android:id="@+id/card_view"
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
-        android:background="@color/colorAccent"
-        card_view:cardCornerRadius="4dp">
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="2dp">
 
-        <TextView
-            android:id="@+id/id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/content"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorVisionMain"
+                android:textAppearance="?attr/textAppearanceListItem" />
 
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem" />
-
+            <ImageView
+                android:id="@+id/contentImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:adjustViewBounds="true"
+                android:src="@drawable/side_nav_bar" />
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>
