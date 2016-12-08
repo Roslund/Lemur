@@ -21,17 +21,18 @@
         android:id="@+id/menuMainGroup">
 
         <item
-            android:id="@+id/menuVision"
-            android:title="Vision"/>
+            android:id="@+id/menuAcc"
+            android:title="Accelerometer "/>
         <item
             android:id="@+id/menuAlti"
             android:title="Altimeter"/>
         <item
-            android:id="@+id/menuAcc"
-            android:title="Accelerometer "/>
-        <item
             android:id="@+id/menuSound"
             android:title="Decibel"/>
+
+        <item
+            android:id="@+id/menuVision"
+            android:title="Vision"/>
     </group>
 
     <group

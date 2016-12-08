@@ -58,7 +58,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragment = new VisionMainFragment();
-        fragmentTransaction.add(R.id.your_placeholder, fragment);
+        fragmentTransaction.add(R.id.fragment_paceholder, fragment);
         fragmentTransaction.commit();
     }
 
@@ -104,7 +104,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragment = new ItemFragment();
-        fragmentTransaction.replace(R.id.your_placeholder, fragment);
+        fragmentTransaction.replace(R.id.fragment_paceholder, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
