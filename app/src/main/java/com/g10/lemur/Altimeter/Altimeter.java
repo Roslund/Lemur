@@ -1,4 +1,4 @@
-package com.g10.lemur;
+package com.g10.lemur.Altimeter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,20 +11,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.g10.lemur.Accelerometer.Accelerometer;
-import com.g10.lemur.Altimeter.Altimeter;
 import com.g10.lemur.Decibel.Decibel;
+import com.g10.lemur.R;
 import com.g10.lemur.Vision.Vision;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener
+public class Altimeter extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_altimeter);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // Set the current activity as marked in the menu
-        navigationView.setCheckedItem(R.id.menuHome);
+        navigationView.setCheckedItem(R.id.menuAlti);
     }
 
     @Override
@@ -103,14 +101,10 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.menuAlti)
         {
             // Go to altimeter
-            intent = new Intent(this, Altimeter.class);
-            startActivity(intent);
         }
         else if (id == R.id.menuAcc)
         {
             // Go to accelerometer
-            intent = new Intent(this, Accelerometer.class);
-            startActivity(intent);
         }
         else if (id == R.id.menuSound)
         {
