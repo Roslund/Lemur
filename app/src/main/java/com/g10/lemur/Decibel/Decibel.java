@@ -11,8 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.g10.lemur.Accelerometer.Accelerometer;
+import com.g10.lemur.Altimeter.Altimeter;
+import com.g10.lemur.Help.Help;
 import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
+import com.g10.lemur.Settings.Settings;
 import com.g10.lemur.Vision.Vision;
 
 public class Decibel extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -69,34 +73,42 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
 
         if (id == R.id.menuHome)
         {
-            // Go home
             intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
         else if (id == R.id.menuVision)
         {
+            // Go to Google Vision
             intent = new Intent(this, Vision.class);
             startActivity(intent);
         }
         else if (id == R.id.menuAlti)
         {
             // Go to altimeter
+            intent = new Intent(this, Altimeter.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuAcc)
         {
             // Go to accelerometer
+            intent = new Intent(this, Accelerometer.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuSound)
         {
-            // Go to decibel
+            // Stay here
         }
         else if (id == R.id.menuHelp)
         {
             // Go to help
+            intent = new Intent(this, Help.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuSettings)
         {
             // Go to Settings
+            intent = new Intent(this, Settings.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

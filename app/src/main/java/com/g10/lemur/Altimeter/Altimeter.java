@@ -11,8 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.g10.lemur.Accelerometer.Accelerometer;
 import com.g10.lemur.Decibel.Decibel;
+import com.g10.lemur.Help.Help;
+import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
+import com.g10.lemur.Settings.Settings;
 import com.g10.lemur.Vision.Vision;
 
 public class Altimeter extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -90,7 +94,8 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
 
         if (id == R.id.menuHome)
         {
-
+            intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuVision)
         {
@@ -100,11 +105,13 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         }
         else if (id == R.id.menuAlti)
         {
-            // Go to altimeter
+            // Stay here
         }
         else if (id == R.id.menuAcc)
         {
             // Go to accelerometer
+            intent = new Intent(this, Accelerometer.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuSound)
         {
@@ -115,10 +122,14 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         else if (id == R.id.menuHelp)
         {
             // Go to help
+            intent = new Intent(this, Help.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuSettings)
         {
             // Go to Settings
+            intent = new Intent(this, Settings.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

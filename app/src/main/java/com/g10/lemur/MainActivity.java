@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import com.g10.lemur.Accelerometer.Accelerometer;
 import com.g10.lemur.Altimeter.Altimeter;
 import com.g10.lemur.Decibel.Decibel;
+import com.g10.lemur.Help.Help;
+import com.g10.lemur.Settings.Settings;
 import com.g10.lemur.Vision.Vision;
 
 public class MainActivity extends AppCompatActivity
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.menuHome)
         {
-
+            // Stay here
         }
         else if (id == R.id.menuVision)
         {
@@ -121,10 +123,14 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.menuHelp)
         {
             // Go to help
+            intent = new Intent(this, Help.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuSettings)
         {
             // Go to Settings
+            intent = new Intent(this, Settings.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
