@@ -21,6 +21,7 @@ import com.g10.lemur.Vision.Vision;
 
 public class Decibel extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,8 +37,22 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.setCheckedItem(R.id.menuSound);
+    }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        navigationView.setCheckedItem(R.id.menuSound);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
 
         navigationView.setCheckedItem(R.id.menuSound);
     }

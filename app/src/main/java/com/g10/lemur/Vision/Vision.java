@@ -30,6 +30,7 @@ import com.g10.lemur.Vision.dummy.DummyContent;
 
 public class Vision extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener
 {
+    NavigationView navigationView;
     ItemFragment fragment;
 
     @Override
@@ -46,7 +47,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         navigationView.setCheckedItem(R.id.menuVision);
@@ -56,6 +57,20 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         fragment = new ItemFragment();
         fragmentTransaction.add(R.id.your_placeholder, fragment);
         fragmentTransaction.commit();
+    }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        navigationView.setCheckedItem(R.id.menuVision);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        navigationView.setCheckedItem(R.id.menuVision);
     }
 
     @Override

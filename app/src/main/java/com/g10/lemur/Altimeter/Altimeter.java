@@ -21,6 +21,7 @@ import com.g10.lemur.Vision.Vision;
 
 public class Altimeter extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,10 +37,24 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         // Set the current activity as marked in the menu
+        navigationView.setCheckedItem(R.id.menuAlti);
+    }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        navigationView.setCheckedItem(R.id.menuAlti);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
         navigationView.setCheckedItem(R.id.menuAlti);
     }
 
