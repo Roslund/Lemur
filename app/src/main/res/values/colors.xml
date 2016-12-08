@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorVisionMain">#00BCD4</color>
+    <color name="colorSettingsMain">#03A9F4</color>
+    <color name="colorHelpMain">#4CAF50</color>
+    <color name="colorDecibelMain">#E91E63</color>
+    <color name="colorAltimeterMain">#CDDC39</color>
+    <color name="colorAccelerometerMain">#F44336</color>
 </resources>
