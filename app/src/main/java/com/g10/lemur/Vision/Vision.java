@@ -1,15 +1,23 @@
 package com.g10.lemur.Vision;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.g10.lemur.Accelerometer.Accelerometer;
 import com.g10.lemur.Altimeter.Altimeter;
@@ -18,9 +26,11 @@ import com.g10.lemur.Help.Help;
 import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
+import com.g10.lemur.Vision.dummy.DummyContent;
 
-public class Vision extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class Vision extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener
 {
+    ItemFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,6 +50,12 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         navigationView.setNavigationItemSelectedListener(this);
 
         navigationView.setCheckedItem(R.id.menuVision);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragment = new ItemFragment();
+        fragmentTransaction.add(R.id.your_placeholder, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -53,6 +69,11 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         {
             super.onBackPressed();
         }
+    }
+
+    public void onListFragmentInteraction(DummyContent.DummyItem item)
+    {
+        Toast.makeText(this, "hej", Toast.LENGTH_SHORT).show();
     }
 
     @Override
