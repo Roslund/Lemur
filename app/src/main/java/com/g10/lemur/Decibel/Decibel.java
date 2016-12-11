@@ -7,6 +7,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +24,23 @@ import com.g10.lemur.Vision.Vision;
 public class Decibel extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     NavigationView navigationView;
+
+    public static final int DATA = 0;
+    public static final int GRAPH = 1;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+
+    // Decides what data should be visible in the card. Need as many items in mDataset as you have DataSetTypes.
+    private String[] mDataset = {"56 dB", ""};
+
+    // Description for the DATA cards. You can leave the description empty ("") but every card needs a descritption for the CustomAdapter to work.
+    private String[] mDescription = {"Mesures the sound recorded by the device and displays it in decibel."};
+
+    // Decides how many cards of what type you want. Currently exists DATA cards and GRAPH cards.
+    private int mDataSetTypes[] = {DATA, GRAPH};
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,6 +60,16 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
 
         navigationView.setCheckedItem(R.id.menuSound);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new CustomAdapter(mDataset, mDescription, mDataSetTypes);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState)
