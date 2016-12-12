@@ -52,7 +52,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = new VisionMainFragment();
+        fragment = new ItemFragment();
         fragmentTransaction.add(R.id.fragment_paceholder, fragment);
         fragmentTransaction.commit();
     }
