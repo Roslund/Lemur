@@ -2,6 +2,7 @@ package com.g10.lemur.Altimeter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.g10.lemur.Accelerometer.Accelerometer;
 import com.g10.lemur.Decibel.Decibel;
@@ -18,10 +20,26 @@ import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
 import com.g10.lemur.Vision.Vision;
+import com.jjoe64.graphview.DefaultLabelFormatter;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.Random;
 
 public class Altimeter extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     NavigationView navigationView;
+
+    private final Handler mHandler = new Handler();
+    private Runnable mTimer;
+
+    TextView textView;
+    GraphView graph;
+    LineGraphSeries<DataPoint> series;
+    long activityCreateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,6 +60,35 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
 
         // Set the current activity as marked in the menu
         navigationView.setCheckedItem(R.id.menuAlti);
+
+        //Graph stuff
+        textView = (TextView) findViewById(R.id.textView);
+        graph = (GraphView) findViewById(R.id.graph);
+        series = new LineGraphSeries<>();
+        graph.addSeries(series);
+
+        graph.setTitle("Graph");
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Time");
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(10000);
+        graph.getGridLabelRenderer().setNumHorizontalLabels(4);
+
+        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
+        {
+            @Override
+            public String formatLabel(double value, boolean isValueX)
+            {
+                if (isValueX) {
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    return df.format(value/1000)+"s";
+                } else {
+                    return super.formatLabel(value, isValueX);
+                }
+            }
+        });
+
+        activityCreateTime = System.currentTimeMillis();
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState)
@@ -52,10 +99,32 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
     }
 
     @Override
-    public void onResume(){
+    public void onResume()
+    {
         super.onResume();
 
         navigationView.setCheckedItem(R.id.menuAlti);
+
+        mTimer = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                int yValue = randomYValue();
+                textView.setText(String.valueOf(yValue)+" MöH");
+                series.appendData(newDatapoint(yValue), true, 100);
+                graph.onDataChanged(true, false);
+                mHandler.postDelayed(this, 1000);
+            }
+        };
+        mHandler.postDelayed(mTimer, 1000);
+    }
+
+    @Override
+    public void onPause()
+    {
+        mHandler.removeCallbacks(mTimer);
+        super.onPause();
     }
 
     @Override
@@ -151,4 +220,17 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private int randomYValue()
+    {
+        Random random = new Random();
+        return random.nextInt(19);
+    }
+
+    private DataPoint newDatapoint(int y)
+    {
+        double timeSince = System.currentTimeMillis() - activityCreateTime;
+        return new DataPoint(timeSince, y);
+    }
+
 }

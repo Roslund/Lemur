@@ -1,12 +1,10 @@
 package com.g10.lemur.Vision;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -14,12 +12,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.g10.lemur.Accelerometer.Accelerometer;
@@ -57,7 +52,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = new VisionMainFragment();
+        fragment = new ItemFragment();
         fragmentTransaction.add(R.id.fragment_paceholder, fragment);
         fragmentTransaction.commit();
     }
@@ -170,4 +165,13 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         return true;
     }
 
+    protected void openCamera (View view)
+    {
+
+    }
+
+    protected void openGallery (View view)
+    {
+
+    }
 }
