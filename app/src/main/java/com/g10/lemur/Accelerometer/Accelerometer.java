@@ -1,6 +1,7 @@
 package com.g10.lemur.Accelerometer;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.g10.lemur.Altimeter.Altimeter;
 import com.g10.lemur.Decibel.Decibel;
@@ -42,6 +44,7 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
 
         // Set the current activity as marked in the menu
         navigationView.setCheckedItem(R.id.menuAcc);
+
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState)
