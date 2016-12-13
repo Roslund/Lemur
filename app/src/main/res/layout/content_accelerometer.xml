@@ -46,10 +46,11 @@
             android:layout_marginTop="40dp"
             android:layout_marginLeft="30dp" />
         <TextView
+            android:id="@+id/XDataText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="9.5"
-            android:textSize="75sp"
+            android:textSize="60sp"
             android:gravity="center_vertical"
             android:layout_marginLeft="220dp"
             android:layout_marginTop="40dp"/>

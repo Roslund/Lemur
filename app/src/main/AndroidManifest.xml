@@ -36,7 +36,8 @@
         <activity
             android:name=".Accelerometer.Accelerometer"
             android:label="@string/title_activity_accelerometer"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Help.Help"

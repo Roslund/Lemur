@@ -12,6 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.widget.TextView;
 
 import com.g10.lemur.Altimeter.Altimeter;
 import com.g10.lemur.Decibel.Decibel;
@@ -21,9 +26,13 @@ import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
 import com.g10.lemur.Vision.Vision;
 
-public class Accelerometer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class Accelerometer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener
 {
     NavigationView navigationView;
+    private TextView XaxisText, YaxisText, ZaxisText;
+    private Sensor accSensor;
+    private SensorManager SM;
+    private double lessFloat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,6 +54,17 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
         // Set the current activity as marked in the menu
         navigationView.setCheckedItem(R.id.menuAcc);
 
+        //Create sensor manager
+        SM = (SensorManager)getSystemService(SENSOR_SERVICE);
+
+        accSensor = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        SM.registerListener(this,accSensor,SensorManager.SENSOR_DELAY_UI);
+
+        //Assign TextViews TODO: add Y and Z data textviews.
+        XaxisText = (TextView)findViewById(R.id.XDataText);
+        //YaxisText = (TextView)findViewById(R.id.XDataText);
+        //ZaxisText = (TextView)findViewById(R.id.XDataText);
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState)
@@ -153,5 +173,23 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private static double round (double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        lessFloat = round(sensorEvent.values[0],1);
+        String lessFloatstring = String.valueOf(lessFloat);
+        XaxisText.setText(lessFloatstring);
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+        //Not in use
     }
 }
