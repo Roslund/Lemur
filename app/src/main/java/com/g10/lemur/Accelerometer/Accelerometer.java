@@ -32,7 +32,9 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
     private TextView XaxisText, YaxisText, ZaxisText;
     private Sensor accSensor;
     private SensorManager SM;
-    private double lessFloat;
+    private double lessFloatX;
+    private double lessFloatY;
+    private double lessFloatZ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,10 +63,10 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
 
         SM.registerListener(this,accSensor,SensorManager.SENSOR_DELAY_UI);
 
-        //Assign TextViews TODO: add Y and Z data textviews.
+        //Assign TextViews for accelerometer data
         XaxisText = (TextView)findViewById(R.id.XDataText);
-        //YaxisText = (TextView)findViewById(R.id.XDataText);
-        //ZaxisText = (TextView)findViewById(R.id.XDataText);
+        YaxisText = (TextView)findViewById(R.id.YDataText);
+        ZaxisText = (TextView)findViewById(R.id.ZDataText);
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState)
@@ -174,7 +176,8 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    //funktion som rundar av till *int precision* antal decimaler
+    //Ex Math.pow(10,1) = 10^1, Math.round(9.83827 * 10) = 98, 98/10 = 9.8
     private static double round (double value, int precision) {
         int scale = (int) Math.pow(10, precision);
         return (double) Math.round(value * scale) / scale;
@@ -182,10 +185,12 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        lessFloat = round(sensorEvent.values[0],1);
-        String lessFloatstring = String.valueOf(lessFloat);
-        XaxisText.setText(lessFloatstring);
-
+        lessFloatX = round(sensorEvent.values[0],1);
+        lessFloatY = round(sensorEvent.values[1],1);
+        lessFloatZ = round(sensorEvent.values[2],1);
+        XaxisText.setText(String.valueOf(lessFloatX));
+        YaxisText.setText(String.valueOf((lessFloatY)));
+        ZaxisText.setText(String.valueOf((lessFloatZ)));
     }
 
     @Override

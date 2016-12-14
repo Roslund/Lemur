@@ -40,11 +40,11 @@
             android:id="@+id/mtextViewXTitle"/>
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="140dp"
+            android:layout_height="160dp"
             android:src="@drawable/smartphonexaxis"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="30dp" />
+            android:layout_marginTop="85dp"
+            android:layout_marginLeft="35dp" />
         <TextView
             android:id="@+id/XDataText"
             android:layout_width="match_parent"
@@ -95,6 +95,23 @@
                 android:gravity="center_vertical"
                 android:id="@+id/mtextViewYTitle"/>
 
+            <ImageView
+                android:layout_width="175dp"
+                android:layout_height="205dp"
+                android:src="@drawable/smartphoneyaxis"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="20dp" />
+            <TextView
+                android:id="@+id/YDataText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="9.5"
+                android:textSize="60sp"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="220dp"
+                android:layout_marginTop="40dp"/>
+
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
@@ -135,6 +152,23 @@
                 android:padding="12dp"
                 android:gravity="center_vertical"
                 android:id="@+id/mtextViewYZitle"/>
+
+            <ImageView
+                android:layout_width="140dp"
+                android:layout_height="160dp"
+                android:src="@drawable/smartphonezaxis"
+                android:layout_marginTop="85dp"
+                android:layout_marginLeft="35dp" />
+            <TextView
+                android:id="@+id/ZDataText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="9.5"
+                android:textSize="60sp"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="220dp"
+                android:layout_marginTop="40dp"/>
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
