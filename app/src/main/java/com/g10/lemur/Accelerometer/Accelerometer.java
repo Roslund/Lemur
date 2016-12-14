@@ -75,12 +75,19 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
 
         navigationView.setCheckedItem(R.id.menuAcc);
     }
+    @Override
+    public void onPause(){
+        super.onPause(); //always call superclass method first
 
+            SM.unregisterListener(this,accSensor);
+    }
     @Override
     public void onResume(){
         super.onResume();
 
         navigationView.setCheckedItem(R.id.menuAcc);
+        
+        SM.registerListener(this,accSensor,SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
