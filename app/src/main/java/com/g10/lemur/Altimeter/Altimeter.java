@@ -109,7 +109,7 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
             public void run()
             {
                 int yValue = randomYValue();
-                textView.setText(String.valueOf(yValue)+" MöH");
+                textView.setText(String.valueOf(yValue));
                 series.appendData(newDatapoint(yValue), true, 100);
                 graph.onDataChanged(true, false);
                 mHandler.postDelayed(this, 1000);

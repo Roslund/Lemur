@@ -61,20 +61,57 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     >
 
-                    <TextView
-                        android:id="@+id/textView"
-                        android:text="0"
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="65dp"
-                        android:gravity="center"
-                        android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:text="0"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="65dp"
+                            android:gravity="right"
+
+                            android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView" />
+                        <TextView
+                            android:id="@+id/textViewUnit"
+                            android:text="möh"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="20dp"
+                            android:gravity="right"
+                            android:textAppearance="@android:style/TextAppearance.Material.Widget.TextView" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center_vertical"
+                            app:srcCompat="@drawable/mountain_snow_rugged_512"
+                            />
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
 
