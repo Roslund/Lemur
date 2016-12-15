@@ -7,6 +7,7 @@
     <color name="colorSettingsMain">#03A9F4</color>
     <color name="colorHelpMain">#4CAF50</color>
     <color name="colorDecibelMain">#E91E63</color>
-    <color name="colorAltimeterMain">#CDDC39</color>
+    <color name="colorAltimeterMain">#FF5722</color>
+    <color name="colorAltimeter50">#FBE9E7</color>
     <color name="colorAccelerometerMain">#607D8B</color>
 </resources>

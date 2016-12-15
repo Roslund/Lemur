@@ -37,8 +37,8 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
     private Runnable mTimer;
 
     TextView textView;
-    GraphView graph;
-    LineGraphSeries<DataPoint> series;
+    static GraphView graph;
+    static LineGraphSeries<DataPoint> series;
     long activityCreateTime;
 
     @Override
@@ -67,8 +67,6 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         series = new LineGraphSeries<>();
         graph.addSeries(series);
 
-        graph.setTitle("Graph");
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Time");
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(10000);
