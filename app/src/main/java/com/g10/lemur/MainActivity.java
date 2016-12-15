@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.g10.lemur.Accelerometer.Accelerometer;
 import com.g10.lemur.Altimeter.Altimeter;
@@ -151,5 +152,29 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void launchActivity(View view)
+    {
+        View cardAcc = findViewById(R.id.card_view_accelerometer);
+        View cardAlt = findViewById(R.id.card_view_altimeter);
+        View cardDec = findViewById(R.id.card_view_Decibel);
+        View cardVis = findViewById(R.id.card_view_Vision);
+        if(view == cardAcc)
+        {
+            Intent intent = new Intent(this,Accelerometer.class);
+            startActivity(intent);
+        }
+        else if(view == cardAlt){
+            Intent intent = new Intent(this,Altimeter.class);
+            startActivity(intent);
+        }
+        else if(view == cardVis){
+            Intent intent = new Intent(this,Vision.class);
+            startActivity(intent);
+        }
+        else if(view == cardDec){
+            Intent intent = new Intent(this,Decibel.class);
+            startActivity(intent);
+        }
     }
 }

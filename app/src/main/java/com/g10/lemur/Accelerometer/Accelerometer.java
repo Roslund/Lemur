@@ -86,7 +86,7 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
         super.onResume();
 
         navigationView.setCheckedItem(R.id.menuAcc);
-        
+
         SM.registerListener(this,accSensor,SensorManager.SENSOR_DELAY_UI);
     }
 

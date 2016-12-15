@@ -1,21 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_main"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.g10.lemur.MainActivity">
-
-    <TextView
+    android:layout_width="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Main"/>
+        android:orientation="vertical"
+        android:weightSum="2"
+        android:layout_marginTop="60dp">
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_accelerometer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="1"
+        android:onClick="launchActivity"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorAccelerometerMain"
+            android:padding="5dp"
+            android:textColor="#ffffff"
+            android:text="Accelerometer desc"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="60dp"
+            android:background="#ECEFF1"
+            android:padding="5dp"
+            android:id="@+id/imageViewAccelerometer" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_altimeter"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:onClick="launchActivity"
+        android:layout_weight="1"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorAltimeterMain"
+            android:padding="5dp"
+            android:textColor="#ffffff"
+            android:text="Altimeter desc"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="60dp"
+            android:padding="5dp"
+            android:background="@color/colorAltimeter50"
+            android:id="@+id/imageViewAltimeter" />
+    </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="2">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_Decibel"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:onClick="launchActivity"
+        android:layout_weight="1"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorDecibelMain"
+            android:padding="5dp"
+            android:textColor="#ffffff"
+            android:text="Decibel desc"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="60dp"
+            android:padding="5dp"
+            android:background="#E3F2FD"
+            android:id="@+id/imageViewDecibel" />
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_Vision"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:onClick="launchActivity"
+        android:layout_weight="1"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorVisionMain"
+            android:padding="5dp"
+            android:textColor="#ffffff"
+            android:text="Vision desc"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="60dp"
+            android:background="#E0F7FA"
+            android:padding="5dp"
+            android:id="@+id/imageViewVision" />
+    </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
