@@ -7,18 +7,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.g10.lemur.R;
+import com.g10.lemur.Vision.content.VisionContent;
+
+import static com.g10.lemur.Vision.Vision.it;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link VisionMainFragment.OnFragmentInteractionListener} interface
+ * {@link VisionAction.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link VisionMainFragment#newInstance} factory method to
+ * Use the {@link VisionAction#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class VisionMainFragment extends Fragment {
+public class VisionAction extends Fragment
+{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -27,11 +32,15 @@ public class VisionMainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    String id, title, content;
+    TextView tv;
+    VisionContent.VisionItem itemz;
 
     private OnFragmentInteractionListener mListener;
 
-    public VisionMainFragment() {
+    public VisionAction() {
         // Required empty public constructor
+
     }
 
     /**
@@ -40,11 +49,11 @@ public class VisionMainFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment VisionMainFragment.
+     * @return A new instance of fragment VisionAction.
      */
     // TODO: Rename and change types and number of parameters
-    public static VisionMainFragment newInstance(String param1, String param2) {
-        VisionMainFragment fragment = new VisionMainFragment();
+    public static VisionAction newInstance(String param1, String param2) {
+        VisionAction fragment = new VisionAction();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,14 +68,25 @@ public class VisionMainFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        title = it.title;
+        content = it.content;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_vision_main, container, false);
+        return inflater.inflate(R.layout.fragment_vision_action, container, false);
     }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        tv = (TextView)getActivity().findViewById(R.id.actionFrag);
+        tv.setText(content);
+        getActivity().setTitle(title);
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

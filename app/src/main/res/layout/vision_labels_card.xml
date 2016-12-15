@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:minHeight="200dp"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="2dp"
+    >
+    <!-- ^ layout_height should be wrap_content -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff"
+            android:gravity="center_vertical"
+            android:textSize="24sp"
+            android:paddingLeft="8dp"
+            android:text="Labels"/>
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:layout_weight="8"
+            android:lineSpacingExtra="10dp"
+            android:textSize="16sp"
+            android:text="97%: Face\n85%: Human\n70%: Male\n65%: People\n50%: Beard"/>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

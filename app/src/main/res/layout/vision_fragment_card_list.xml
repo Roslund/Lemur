@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
-    android:name="com.g10.lemur.Vision.ItemFragment"
+    android:name="com.example.andre.vision.CardFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.g10.lemur.Vision.ItemFragment"
-    tools:listitem="@layout/fragment_item" />
+    tools:context="com.g10.lemur.Vision.Vision"
+    tools:listitem="@layout/vision_fragment_card" />

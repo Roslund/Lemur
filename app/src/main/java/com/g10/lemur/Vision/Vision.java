@@ -20,20 +20,19 @@ import android.widget.Toast;
 import com.g10.lemur.Accelerometer.Accelerometer;
 import com.g10.lemur.Altimeter.Altimeter;
 import com.g10.lemur.Decibel.Decibel;
-import com.g10.lemur.Help.Help;
 import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
-import com.g10.lemur.Vision.dummy.DummyContent;
+import com.g10.lemur.Vision.content.VisionContent;
 
-public class Vision extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener, VisionMainFragment.OnFragmentInteractionListener
+public class Vision extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Choice.OnFragmentInteractionListener, CardFragment.OnListFragmentInteractionListener, VisionAction.OnFragmentInteractionListener
 {
-    NavigationView navigationView;
     Fragment fragment;
+    NavigationView navigationView;
+    protected static VisionContent.VisionItem it;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vision);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -48,12 +47,13 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Set the current activity as marked in the menu
         navigationView.setCheckedItem(R.id.menuVision);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = new ItemFragment();
-        fragmentTransaction.add(R.id.fragment_paceholder, fragment);
+        fragment = new Choice();
+        fragmentTransaction.add(R.id.fragment_placeholder, fragment);
         fragmentTransaction.commit();
     }
 
@@ -68,12 +68,14 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
     public void onResume(){
         super.onResume();
 
-        navigationView.setCheckedItem(R.id.menuVision);
+        navigationView.setCheckedItem(R.id.menuHelp);
     }
 
     @Override
     public void onBackPressed()
     {
+        // Physical back button pressed
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START))
         {
@@ -84,32 +86,30 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         }
     }
 
-    public void onListFragmentInteraction(DummyContent.DummyItem item)
-    {
-        Toast.makeText(this, "hej", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        Toast.makeText(this, "fragz", Toast.LENGTH_SHORT).show();
-    }
-
-    protected void newFrag(View view)
-    {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = new ItemFragment();
-        fragmentTransaction.replace(R.id.fragment_paceholder, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
+        // Right sub-menu.
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings)
+        {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -127,7 +127,9 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         }
         else if (id == R.id.menuVision)
         {
-            // Stay here
+            // Go to Google Vision
+            intent = new Intent(this, Vision.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuAlti)
         {
@@ -149,9 +151,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         }
         else if (id == R.id.menuHelp)
         {
-            // Go to help
-            intent = new Intent(this, Help.class);
-            startActivity(intent);
+            // Stay here
         }
         else if (id == R.id.menuSettings)
         {
@@ -165,13 +165,34 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         return true;
     }
 
-    protected void openCamera (View view)
-    {
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Toast.makeText(this, "fragz", Toast.LENGTH_SHORT).show();
+    }
 
+    public void onListFragmentInteraction(VisionContent.VisionItem item)
+    {
+        it = item;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragment = new VisionAction();
+        fragmentTransaction.replace(R.id.fragment_placeholder, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    protected void openCamera(View view)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragment = new CardFragment();
+        fragmentTransaction.replace(R.id.fragment_placeholder, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     protected void openGallery (View view)
     {
-
+        openCamera(view);
     }
 }
