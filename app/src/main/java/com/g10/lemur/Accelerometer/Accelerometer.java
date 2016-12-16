@@ -3,6 +3,8 @@ package com.g10.lemur.Accelerometer;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,16 +27,41 @@ import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
 import com.g10.lemur.Vision.Vision;
+import com.jjoe64.graphview.DefaultLabelFormatter;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.text.DecimalFormat;
+
+import static com.g10.lemur.R.id.textView;
 
 public class Accelerometer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener
 {
     NavigationView navigationView;
+
+    //Sensor related declarations
     private TextView XaxisText, YaxisText, ZaxisText;
     private Sensor accSensor;
     private SensorManager SM;
     private double lessFloatX;
     private double lessFloatY;
     private double lessFloatZ;
+
+    //Graph related declarations
+    private double yValueXaxis;
+    private double yValueYaxis;
+    private double yValueZaxis;
+
+    private final Handler mHandler = new Handler();
+    private Runnable mTimer;
+    static GraphView graphX;
+    static GraphView graphY;
+    static GraphView graphZ;
+    static LineGraphSeries<DataPoint> seriesX;
+    static LineGraphSeries<DataPoint> seriesY;
+    static LineGraphSeries<DataPoint> seriesZ;
+    long activityCreateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,12 +88,99 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
 
         accSensor = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+        //Start Listening to sensor
         SM.registerListener(this,accSensor,SensorManager.SENSOR_DELAY_UI);
 
         //Assign TextViews for accelerometer data
         XaxisText = (TextView)findViewById(R.id.XDataText);
         YaxisText = (TextView)findViewById(R.id.YDataText);
         ZaxisText = (TextView)findViewById(R.id.ZDataText);
+
+        //Graph X
+        graphX = (GraphView)findViewById(R.id.XGraph);
+        seriesX = new LineGraphSeries<>();
+        graphX.addSeries(seriesX);
+
+        graphX.getViewport().setXAxisBoundsManual(true);
+        graphX.getViewport().setMinX(0);
+        graphX.getViewport().setMaxX(10000);
+        graphX.getViewport().setYAxisBoundsManual(true);
+        graphX.getViewport().setMinY(-40);
+        graphX.getViewport().setMaxY(40);
+        graphX.getGridLabelRenderer().setNumHorizontalLabels(4);
+
+        //Graph Y
+        graphY = (GraphView)findViewById(R.id.YGraph);
+        seriesY = new LineGraphSeries<>();
+        graphY.addSeries(seriesY);
+
+        graphY.getViewport().setXAxisBoundsManual(true);
+        graphY.getViewport().setMinX(0);
+        graphY.getViewport().setMaxX(10000);
+        graphY.getViewport().setYAxisBoundsManual(true);
+        graphY.getViewport().setMinY(-40);
+        graphY.getViewport().setMaxY(40);
+        graphY.getGridLabelRenderer().setNumHorizontalLabels(4);
+
+        //Graph Z
+        graphZ = (GraphView)findViewById(R.id.ZGraph);
+        seriesZ = new LineGraphSeries<>();
+        graphZ.addSeries(seriesZ);
+
+        graphZ.getViewport().setXAxisBoundsManual(true);
+        graphZ.getViewport().setMinX(0);
+        graphZ.getViewport().setMaxX(10000);
+        graphZ.getViewport().setYAxisBoundsManual(true);
+        graphZ.getViewport().setMinY(-40);
+        graphZ.getViewport().setMaxY(40);
+        graphZ.getGridLabelRenderer().setNumHorizontalLabels(4);
+
+
+        //X Axis Graph Label format
+        graphX.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
+        {
+            @Override
+            public String formatLabel(double value, boolean isValueX)
+            {
+                if (isValueX) {
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    return df.format(value/1000)+"s";
+                } else {
+                    return super.formatLabel(value, isValueX);
+                }
+            }
+        });
+        //Y Axis Graph Label Format
+        graphY.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
+        {
+            @Override
+            public String formatLabel(double value, boolean isValueX)
+            {
+                if (isValueX) {
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    return df.format(value/1000)+"s";
+                } else {
+                    return super.formatLabel(value, isValueX);
+                }
+            }
+        });
+        //Z Axis Graph Format
+        graphZ.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
+        {
+            @Override
+            public String formatLabel(double value, boolean isValueX)
+            {
+                if (isValueX) {
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    return df.format(value/1000)+"s";
+                } else {
+                    return super.formatLabel(value, isValueX);
+                }
+            }
+        });
+
+
+        activityCreateTime = System.currentTimeMillis();
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState)
@@ -79,7 +193,10 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
     public void onPause(){
         super.onPause(); //always call superclass method first
 
+            mHandler.removeCallbacks(mTimer);
+
             SM.unregisterListener(this,accSensor);
+
     }
     @Override
     public void onResume(){
@@ -88,6 +205,26 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
         navigationView.setCheckedItem(R.id.menuAcc);
 
         SM.registerListener(this,accSensor,SensorManager.SENSOR_DELAY_UI);
+
+
+        mTimer = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                yValueXaxis = lessFloatX;
+                yValueYaxis = lessFloatY;
+                yValueZaxis = lessFloatZ;
+                seriesX.appendData(newDatapoint(yValueXaxis), true, 100);
+                seriesY.appendData(newDatapoint(yValueYaxis), true, 100);
+                seriesZ.appendData(newDatapoint(yValueZaxis), true, 100);
+                graphX.onDataChanged(true, false);
+                graphY.onDataChanged(true, false);
+                graphZ.onDataChanged(true, false);
+                mHandler.postDelayed(this, 100);
+            }
+        };
+        mHandler.postDelayed(mTimer, 100);
     }
 
     @Override
@@ -203,5 +340,10 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
         //Not in use
+    }
+    private DataPoint newDatapoint(double y)
+    {
+        double timeSince = System.currentTimeMillis() - activityCreateTime;
+        return new DataPoint(timeSince, y);
     }
 }
