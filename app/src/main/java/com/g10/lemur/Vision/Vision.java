@@ -68,7 +68,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
     public void onResume(){
         super.onResume();
 
-        navigationView.setCheckedItem(R.id.menuHelp);
+        navigationView.setCheckedItem(R.id.menuVision);
     }
 
     @Override
