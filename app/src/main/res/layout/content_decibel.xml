@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
 <android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mRecyclerView"
@@ -7,3 +8,153 @@
     android:layout_height="match_parent"
     android:layout_marginTop="65dp"
     />
+ -->
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/content_decibel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:layout_marginTop="55dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.g10.lemur.Decibel.Decibel"
+        tools:showIn="@layout/activity_decibel">
+
+        <LinearLayout
+            xmlns:tools="http://schemas.android.com/tools"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/fragment_container"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:background="#fff">
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:cardview="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="310dp"
+                android:layout_marginBottom="2dp"
+                cardview:cardCornerRadius="2dp"
+                cardview:cardElevation="3dp"
+                cardview:cardUseCompatPadding="true">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/decibel_cardmenu"
+                    android:textColor="#ffffff"
+                    android:background="#42a5f5"
+                    android:textSize="17sp"
+                    android:padding="12dp"
+                    android:gravity="center_vertical"
+                    android:id="@+id/title_textView"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_uparrow"
+                    android:layout_marginTop="110dp"
+                    android:layout_marginLeft="195dp"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_downarrow"
+                    android:layout_marginTop="190dp"
+                    android:layout_marginLeft="195dp"
+                    />
+                <TextView
+                    android:id="@+id/highValueText"
+                    android:layout_width="178dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="#444"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_toEndOf="@+id/thumbnail"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginLeft="190dp"
+                    android:text="127 dB"/>
+
+                <TextView
+                    android:id="@+id/lowValueText"
+                    android:layout_width="178dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="#444"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_toEndOf="@+id/thumbnail"
+                    android:layout_marginTop="230dp"
+                    android:layout_marginLeft="190dp"
+                    android:text="57 dB"/>
+
+                <TextView
+                    android:id="@+id/currentValueText"
+                    android:layout_width="178dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="#444"
+                    android:textSize="40dp"
+                    android:textStyle="bold"
+                    android:layout_toEndOf="@+id/thumbnail"
+                    android:layout_marginTop="140dp"
+                    android:layout_marginLeft="170dp"
+                    android:text="84 dB"/>
+
+                <ImageView
+                    android:id="@+id/thumbnail"
+                    android:layout_width="120dp"
+                    android:layout_height="107dp"
+                    android:layout_marginTop="120dp"
+                    android:layout_marginLeft="25dp"
+                    android:src="@drawable/sound" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="250dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/small_text_view"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:id="@+id/smallTextView" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:cardview="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginBottom="5dp"
+                cardview:cardCornerRadius="2dp"
+                cardview:cardElevation="3dp"
+                cardview:cardUseCompatPadding="true">
+
+                <com.jjoe64.graphview.GraphView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/graph" />
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
