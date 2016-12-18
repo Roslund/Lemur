@@ -34,7 +34,7 @@ public class VisionContent
         // Add some sample items.
         addItem(createVisionItem("Labels", "97%: Face\n85%: Human\n70%: Male\n65%: People\n50%: Beard", "Labels"));
         addItem(createVisionItem("Safe Search", "Super Safe", "Safe"));
-        addItem(createVisionItem("Colors", "21#1B1B1D;17#EDEDEC;4#6A4A3B", "Colors"));
+        addItem(createVisionItem("Colors", "21#1B1B1D;17#EDEDEC;4#6A4A3B;22#f44b42", "Colors"));
     }
 
     private static void addItem(VisionItem item) {
