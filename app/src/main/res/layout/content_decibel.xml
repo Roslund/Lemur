@@ -56,7 +56,7 @@
                     android:layout_height="60dp"
                     android:text="@string/decibel_cardmenu"
                     android:textColor="#ffffff"
-                    android:background="#42a5f5"
+                    android:background="@color/colorDecibelMain"
                     android:textSize="17sp"
                     android:padding="12dp"
                     android:gravity="center_vertical"
@@ -87,8 +87,7 @@
                     android:textStyle="bold"
                     android:layout_toEndOf="@+id/thumbnail"
                     android:layout_marginTop="80dp"
-                    android:layout_marginLeft="190dp"
-                    android:text="127 dB"/>
+                    android:layout_marginLeft="190dp" />
 
                 <TextView
                     android:id="@+id/lowValueText"
@@ -102,8 +101,7 @@
                     android:textStyle="bold"
                     android:layout_toEndOf="@+id/thumbnail"
                     android:layout_marginTop="230dp"
-                    android:layout_marginLeft="190dp"
-                    android:text="57 dB"/>
+                    android:layout_marginLeft="190dp" />
 
                 <TextView
                     android:id="@+id/currentValueText"
@@ -117,8 +115,7 @@
                     android:textStyle="bold"
                     android:layout_toEndOf="@+id/thumbnail"
                     android:layout_marginTop="140dp"
-                    android:layout_marginLeft="170dp"
-                    android:text="84 dB"/>
+                    android:layout_marginLeft="170dp" />
 
                 <ImageView
                     android:id="@+id/thumbnail"

@@ -195,12 +195,15 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
     public void updateTextView(){
         int volume = soundDb();
 
+        if(volume<0)
+            return;
+
         if(volume>highestVolume){
             highValueTextView.setText(volume + " dB");
             highestVolume = volume;
         }
 
-        if(volume<lowestVolume || lowestVolume < 0){
+        if(volume<lowestVolume){
             lowValueTextView.setText(volume + " dB");
             lowestVolume = volume;
         }
