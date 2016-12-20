@@ -7,4 +7,8 @@
     <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-</resources>
+
+    <!-- Här lägger jag våra custom värden //Anton -->
+    <dimen name="titlebar_texsize">17sp</dimen>
+    <dimen name="titlebar_height">48dp</dimen>
+    </resources>
