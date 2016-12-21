@@ -1,10 +1,13 @@
 package com.g10.lemur.Decibel;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -30,6 +33,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.DecimalFormat;
+import java.util.jar.Manifest;
 
 public class Decibel extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -81,7 +85,6 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -114,7 +117,7 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
                 public void run(){
                     while (runner != null){
                         try{
-                            Thread.sleep(300);
+                            Thread.sleep(100);
                             Log.i("DecibelThread", "Tock");
                         } catch (InterruptedException e){ }
                         mHandler.post(updater);
@@ -125,6 +128,24 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
             Log.d("DecibelThread", "start runner()");
         }
         activityCreateTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                          String permissions[], int[] grantResults){
+        switch (requestCode){
+            case 1:{
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    // Permission granted
+                    startRecorder();
+                }
+                else{
+                    // Permission denied
+                    Toast.makeText(Decibel.this, "Permission denied to use microphone",
+                            Toast.LENGTH_LONG);
+                }
+            }
+        }
     }
 
     private void updateGraphView(){
@@ -151,7 +172,9 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
         super.onResume();
         navigationView.setCheckedItem(R.id.menuSound);
 
+        // Doesn't work atm...
         startRecorder();
+        //ActivityCompat.requestPermissions(Decibel.this, new String[]{"android.permission.RECORD_AUDIO"},1);
     }
     @Override
     public void onPause(){
