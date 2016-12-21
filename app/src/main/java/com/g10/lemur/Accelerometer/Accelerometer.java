@@ -2,17 +2,21 @@ package com.g10.lemur.Accelerometer;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -34,11 +38,24 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.DecimalFormat;
 
+import static com.g10.lemur.R.id.XGraph;
+import static com.g10.lemur.R.id.YDirectionIcon;
+import static com.g10.lemur.R.id.YGraph;
+import static com.g10.lemur.R.id.ZGraph;
+import static com.g10.lemur.R.id.mtextViewXTitle;
 import static com.g10.lemur.R.id.textView;
+import static com.g10.lemur.R.id.title;
 
 public class Accelerometer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener
 {
     NavigationView navigationView;
+
+    //To be able to Swap
+    private ImageView xDirectionIcon, yDirectionIcon, zDirectionIcon;
+    private CardView xGraphCard, yGraphCard, zGraphCard;
+    private ImageView xSwapper, ySwapper, zSwapper;
+    private TextView titleText;
+    private Drawable iconX, iconY,iconZ, iconXpressed, iconYpressed, iconZpressed;
 
     //Sensor related declarations
     private TextView XaxisText, YaxisText, ZaxisText;
@@ -83,6 +100,24 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
         // Set the current activity as marked in the menu
         navigationView.setCheckedItem(R.id.menuAcc);
 
+        //Find so we can swap them
+        iconX = ContextCompat.getDrawable(getApplicationContext(),R.drawable.x);
+        iconY = ContextCompat.getDrawable(getApplicationContext(),R.drawable.y);
+        iconZ = ContextCompat.getDrawable(getApplicationContext(),R.drawable.z);
+        iconXpressed = ContextCompat.getDrawable(getApplicationContext(),R.drawable.xpressed);
+        iconYpressed = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ypressed);
+        iconZpressed = ContextCompat.getDrawable(getApplicationContext(),R.drawable.zpressed);
+        titleText = (TextView)findViewById(R.id.mtextViewXTitle);
+        xDirectionIcon = (ImageView)findViewById(R.id.XDirectionIcon);
+        yDirectionIcon = (ImageView)findViewById(R.id.YDirectionIcon);
+        zDirectionIcon = (ImageView)findViewById(R.id.ZDirectionIcon);
+        xGraphCard = (CardView)findViewById(R.id.cardviewXGraph);
+        yGraphCard = (CardView)findViewById(R.id.cardviewYGraph);
+        zGraphCard = (CardView)findViewById(R.id.cardviewZGraph);
+        xSwapper = (ImageView)findViewById(R.id.swapperX);
+        ySwapper = (ImageView)findViewById(R.id.swapperY);
+        zSwapper = (ImageView)findViewById(R.id.swapperZ);
+
         //Create sensor manager
         SM = (SensorManager)getSystemService(SENSOR_SERVICE);
 
@@ -104,33 +139,33 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
         graphX.getViewport().setXAxisBoundsManual(true);
         graphX.getViewport().setMinX(0);
         graphX.getViewport().setMaxX(10000);
-        graphX.getViewport().setYAxisBoundsManual(true);
+        //graphX.getViewport().setYAxisBoundsManual(true);
         graphX.getViewport().setMinY(-40);
         graphX.getViewport().setMaxY(40);
         graphX.getGridLabelRenderer().setNumHorizontalLabels(4);
 
         //Graph Y
-        graphY = (GraphView)findViewById(R.id.YGraph);
+        graphY = (GraphView)findViewById(YGraph);
         seriesY = new LineGraphSeries<>();
         graphY.addSeries(seriesY);
 
         graphY.getViewport().setXAxisBoundsManual(true);
         graphY.getViewport().setMinX(0);
         graphY.getViewport().setMaxX(10000);
-        graphY.getViewport().setYAxisBoundsManual(true);
+        //graphY.getViewport().setYAxisBoundsManual(true);
         graphY.getViewport().setMinY(-40);
         graphY.getViewport().setMaxY(40);
         graphY.getGridLabelRenderer().setNumHorizontalLabels(4);
 
-        //Graph Z
-        graphZ = (GraphView)findViewById(R.id.ZGraph);
+        //Graph z
+        graphZ = (GraphView)findViewById(ZGraph);
         seriesZ = new LineGraphSeries<>();
         graphZ.addSeries(seriesZ);
 
         graphZ.getViewport().setXAxisBoundsManual(true);
         graphZ.getViewport().setMinX(0);
         graphZ.getViewport().setMaxX(10000);
-        graphZ.getViewport().setYAxisBoundsManual(true);
+        //graphZ.getViewport().setYAxisBoundsManual(true);
         graphZ.getViewport().setMinY(-40);
         graphZ.getViewport().setMaxY(40);
         graphZ.getGridLabelRenderer().setNumHorizontalLabels(4);
@@ -150,7 +185,7 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
                 }
             }
         });
-        //Y Axis Graph Label Format
+        //y Axis Graph Label Format
         graphY.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
         {
             @Override
@@ -164,7 +199,7 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
                 }
             }
         });
-        //Z Axis Graph Format
+        //z Axis Graph Format
         graphZ.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
         {
             @Override
@@ -345,5 +380,63 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
     {
         double timeSince = System.currentTimeMillis() - activityCreateTime;
         return new DataPoint(timeSince, y);
+    }
+    public void SwapViews(View view){
+        if (view == xSwapper)
+        {
+            xSwapper.setImageDrawable(iconXpressed);
+            ySwapper.setImageDrawable(iconY);
+            zSwapper.setImageDrawable(iconZ);
+
+            titleText.setText(getResources().getString(R.string.squared_symbolX));
+            XaxisText.setVisibility(View.VISIBLE);
+            xDirectionIcon.setVisibility(View.VISIBLE);
+            xGraphCard.setVisibility(View.VISIBLE);
+
+            YaxisText.setVisibility(View.INVISIBLE);
+            yDirectionIcon.setVisibility(View.INVISIBLE);
+            yGraphCard.setVisibility(View.INVISIBLE);
+
+            ZaxisText.setVisibility(View.INVISIBLE);
+            zDirectionIcon.setVisibility(View.INVISIBLE);
+            zGraphCard.setVisibility(View.INVISIBLE);
+        }
+        else if(view == ySwapper)
+        {
+            xSwapper.setImageDrawable(iconX);
+            ySwapper.setImageDrawable(iconYpressed);
+            zSwapper.setImageDrawable(iconZ);
+            titleText.setText(getResources().getString(R.string.squared_symbolY));
+            XaxisText.setVisibility(View.INVISIBLE);
+            xDirectionIcon.setVisibility(View.INVISIBLE);
+            xGraphCard.setVisibility(View.INVISIBLE);
+
+            YaxisText.setVisibility(View.VISIBLE);
+            yDirectionIcon.setVisibility(View.VISIBLE);
+            yGraphCard.setVisibility(View.VISIBLE);
+
+            ZaxisText.setVisibility(View.INVISIBLE);
+            zDirectionIcon.setVisibility(View.INVISIBLE);
+            zGraphCard.setVisibility(View.INVISIBLE);
+        }
+        else if(view == zSwapper)
+        {
+            xSwapper.setImageDrawable(iconX);
+            ySwapper.setImageDrawable(iconY);
+            zSwapper.setImageDrawable(iconZpressed);
+
+            titleText.setText(getResources().getString(R.string.squared_symbolZ));
+            XaxisText.setVisibility(View.INVISIBLE);
+            xDirectionIcon.setVisibility(View.INVISIBLE);
+            xGraphCard.setVisibility(View.INVISIBLE);
+
+            YaxisText.setVisibility(View.INVISIBLE);
+            yDirectionIcon.setVisibility(View.INVISIBLE);
+            yGraphCard.setVisibility(View.INVISIBLE);
+
+            ZaxisText.setVisibility(View.VISIBLE);
+            zDirectionIcon.setVisibility(View.VISIBLE);
+            zGraphCard.setVisibility(View.VISIBLE);
+        }
     }
 }
