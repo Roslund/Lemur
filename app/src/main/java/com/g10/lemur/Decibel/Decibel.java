@@ -172,8 +172,8 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
         super.onResume();
         navigationView.setCheckedItem(R.id.menuSound);
 
-        // Doesn't work atm...
         startRecorder();
+        // Doesn't work atm...
         //ActivityCompat.requestPermissions(Decibel.this, new String[]{"android.permission.RECORD_AUDIO"},1);
     }
     @Override
