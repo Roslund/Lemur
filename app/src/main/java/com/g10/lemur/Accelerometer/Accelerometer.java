@@ -214,7 +214,7 @@ public class Accelerometer extends AppCompatActivity implements NavigationView.O
             }
         });
 
-
+        xSwapper.setImageDrawable(iconXpressed);
         activityCreateTime = System.currentTimeMillis();
     }
 
