@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.g10.lemur.Vision.Vision.imageLabels;
+
 /**
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
@@ -32,7 +34,7 @@ public class VisionContent
     static
     {
         // Add some sample items.
-        addItem(createVisionItem("Labels", "97%: Face\n85%: Human\n70%: Male\n65%: People\n50%: Beard", "Labels"));
+        addItem(createVisionItem("Labels", imageLabels, "Labels"));
         addItem(createVisionItem("Safe Search", "Super Safe", "Safe"));
         addItem(createVisionItem("Colors", "21#1B1B1D;17#EDEDEC;4#6A4A3B;22#f44b42", "Colors"));
     }

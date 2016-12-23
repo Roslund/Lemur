@@ -1,8 +1,10 @@
 package com.g10.lemur.Vision;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -28,11 +30,26 @@ import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
 import com.g10.lemur.Vision.content.VisionContent;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.vision.v1.VisionRequestInitializer;
+import com.google.api.services.vision.v1.model.AnnotateImageRequest;
+import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
+import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
+import com.google.api.services.vision.v1.model.EntityAnnotation;
+import com.google.api.services.vision.v1.model.Feature;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 
 public class Vision extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Choice.OnFragmentInteractionListener, CardFragment.OnListFragmentInteractionListener, VisionAction.OnFragmentInteractionListener
 {
@@ -41,6 +58,11 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
     protected static VisionContent.VisionItem it;
     protected static Bitmap image;
     Uri uri;
+    // Min, ge faen i
+    protected static final String CLOUD_VISION_API_KEY = "AIzaSyCpvWMJr9ocKAA5vaRBZpY6AzVrcnKOxFo";
+    public static String imageLabels;
+    ProgressDialog uploading;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +83,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         // Set the current activity as marked in the menu
         navigationView.setCheckedItem(R.id.menuVision);
         image = null;
+        imageLabels = "";
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -227,7 +250,9 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
             if (requestCode == 0)
                 uri = data.getData();
 
-            image = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            image = scaleBitmapDown(
+                    MediaStore.Images.Media.getBitmap(getContentResolver(), uri),
+                    1200);
         }
         catch (IOException ex)
         {
@@ -241,12 +266,137 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         }
         else
         {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragment = new CardFragment();
-            fragmentTransaction.replace(R.id.fragment_placeholder, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commitAllowingStateLoss();
+            try
+            {
+                callCloudVision(image);
+            }
+            catch (IOException ex)
+            {
+                Log.e("VISION ERROR", ex.getMessage());
+            }
         }
+    }
+
+    //
+    // Google Vision functions
+    //
+
+    public Bitmap scaleBitmapDown(Bitmap bitmap, int maxDimension) {
+
+        int originalWidth = bitmap.getWidth();
+        int originalHeight = bitmap.getHeight();
+        int resizedWidth = maxDimension;
+        int resizedHeight = maxDimension;
+
+        if (originalHeight > originalWidth) {
+            resizedHeight = maxDimension;
+            resizedWidth = (int) (resizedHeight * (float) originalWidth / (float) originalHeight);
+        } else if (originalWidth > originalHeight) {
+            resizedWidth = maxDimension;
+            resizedHeight = (int) (resizedWidth * (float) originalHeight / (float) originalWidth);
+        } else if (originalHeight == originalWidth) {
+            resizedHeight = maxDimension;
+            resizedWidth = maxDimension;
+        }
+        return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
+    }
+
+    private void callCloudVision(final Bitmap bitmap) throws IOException {
+        // Switch text to loading
+        //mImageDetails.setText(R.string.loading_message);
+
+        // Do the real work in an async task, because we need to use the network anyway
+        new AsyncTask<Object, Void, String>() {
+
+            @Override
+            protected  void onPreExecute()
+            {
+                uploading = ProgressDialog.show(Vision.this, "",
+                        "Uploading...", true);
+            }
+
+            @Override
+            protected String doInBackground(Object... params) {
+                try {
+                    HttpTransport httpTransport = AndroidHttp.newCompatibleTransport();
+                    JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
+
+                    com.google.api.services.vision.v1.Vision.Builder builder = new com.google.api.services.vision.v1.Vision.Builder(httpTransport, jsonFactory, null);
+                    builder.setVisionRequestInitializer(new
+                            VisionRequestInitializer(CLOUD_VISION_API_KEY));
+                    com.google.api.services.vision.v1.Vision vi = builder.build();
+
+                    BatchAnnotateImagesRequest batchAnnotateImagesRequest =
+                            new BatchAnnotateImagesRequest();
+                    batchAnnotateImagesRequest.setRequests(new ArrayList<AnnotateImageRequest>() {{
+                        AnnotateImageRequest annotateImageRequest = new AnnotateImageRequest();
+
+                        // Add the image
+                        com.google.api.services.vision.v1.model.Image base64EncodedImage = new com.google.api.services.vision.v1.model.Image();
+                        // Convert the bitmap to a JPEG
+                        // Just in case it's a format that Android understands but Cloud Vision
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
+                        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+
+                        // Base64 encode the JPEG
+                        base64EncodedImage.encodeContent(imageBytes);
+                        annotateImageRequest.setImage(base64EncodedImage);
+
+                        // add the features we want
+                        annotateImageRequest.setFeatures(new ArrayList<Feature>() {{
+                            Feature labelDetection = new Feature();
+                            labelDetection.setType("LABEL_DETECTION");
+                            labelDetection.setMaxResults(5);
+                            add(labelDetection);
+                        }});
+
+                        // Add the list of one thing to the request
+                        add(annotateImageRequest);
+                    }});
+
+                    com.google.api.services.vision.v1.Vision.Images.Annotate annotateRequest =
+                            vi.images().annotate(batchAnnotateImagesRequest);
+                    // Due to a bug: requests to Vision API containing large images fail when GZipped.
+                    annotateRequest.setDisableGZipContent(true);
+                    Log.d("TAG", "created Cloud Vision request object, sending request");
+
+                    BatchAnnotateImagesResponse response = annotateRequest.execute();
+                    return convertResponseToString(response);
+
+                } catch (GoogleJsonResponseException e) {
+                    Log.d("TAG", "failed to make API request because " + e.getContent());
+                } catch (IOException e) {
+                    Log.d("TAG", "failed to make API request because of other IOException " +
+                            e.getMessage());
+                }
+                return "Cloud Vision API request failed. Check logs for details.";
+            }
+
+            protected void onPostExecute(String result) {
+                uploading.dismiss();
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragment = new CardFragment();
+                fragmentTransaction.replace(R.id.fragment_placeholder, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commitAllowingStateLoss();
+            }
+        }.execute();
+    }
+
+    private String convertResponseToString(BatchAnnotateImagesResponse response) {
+        List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
+        if (labels != null) {
+            for (EntityAnnotation label : labels) {
+                imageLabels += String.format("%.0f%%: %s", label.getScore()*100, label.getDescription());
+                imageLabels += '\n';
+            }
+        } else {
+            imageLabels += "nothing";
+        }
+
+        return imageLabels;
     }
 }

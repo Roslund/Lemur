@@ -50,7 +50,6 @@ public class CardFragment extends Fragment
     public void onResume(){
         super.onResume();
         getActivity().setTitle("Vision");
-
     }
 
     @Override
