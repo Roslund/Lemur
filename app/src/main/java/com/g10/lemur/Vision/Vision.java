@@ -1,8 +1,11 @@
 package com.g10.lemur.Vision;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,11 +29,18 @@ import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
 import com.g10.lemur.Vision.content.VisionContent;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Vision extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Choice.OnFragmentInteractionListener, CardFragment.OnListFragmentInteractionListener, VisionAction.OnFragmentInteractionListener
 {
     Fragment fragment;
     NavigationView navigationView;
     protected static VisionContent.VisionItem it;
+    protected static Bitmap image;
+    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +60,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
 
         // Set the current activity as marked in the menu
         navigationView.setCheckedItem(R.id.menuVision);
+        image = null;
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -183,16 +195,58 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
 
     protected void openCamera(View view)
     {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = new CardFragment();
-        fragmentTransaction.replace(R.id.fragment_placeholder, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        // Filename
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = timeStamp + ".jpg";
+
+        // Directory
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+
+        // Path
+        String pictureImagePath = storageDir.getAbsolutePath() + "/" + imageFileName;
+        File file = new File(pictureImagePath);
+        uri = Uri.fromFile(file);
+
+        // Open camera
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(cameraIntent, 1);
     }
 
     protected void openGallery (View view)
     {
-        openCamera(view);
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, 0);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try
+        {
+            if (requestCode == 0)
+                uri = data.getData();
+
+            image = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+        }
+        catch (IOException ex)
+        {
+            Log.e("image error", ex.getMessage());
+        }
+
+        if (image == null)
+        {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragment = new CardFragment();
+            fragmentTransaction.replace(R.id.fragment_placeholder, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commitAllowingStateLoss();
+        }
     }
 }
