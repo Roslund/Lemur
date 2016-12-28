@@ -3,6 +3,7 @@ package com.g10.lemur.Vision;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import com.google.api.services.vision.v1.VisionRequestInitializer;
 import com.google.api.services.vision.v1.model.AnnotateImageRequest;
 import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
 import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
+import com.google.api.services.vision.v1.model.ColorInfo;
 import com.google.api.services.vision.v1.model.EntityAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 
@@ -61,6 +63,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
     // Min, ge faen i
     protected static final String CLOUD_VISION_API_KEY = "AIzaSyCpvWMJr9ocKAA5vaRBZpY6AzVrcnKOxFo";
     public static String imageLabels;
+    public static String imageColors;
     ProgressDialog uploading;
 
 
@@ -84,6 +87,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         navigationView.setCheckedItem(R.id.menuVision);
         image = null;
         imageLabels = "";
+        imageColors = "";
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -349,6 +353,11 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
                             labelDetection.setType("LABEL_DETECTION");
                             labelDetection.setMaxResults(5);
                             add(labelDetection);
+
+                            Feature imageProp = new Feature();
+                            imageProp.setType("IMAGE_PROPERTIES");
+                            //imageProp.setMaxResults(5);
+                            add(imageProp);
                         }});
 
                         // Add the list of one thing to the request
@@ -388,9 +397,25 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
 
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
         List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
+        List<ColorInfo> test = response.getResponses().get(0).getImagePropertiesAnnotation().getDominantColors().getColors();
+        List<ColorInfo> colors = response.getResponses().get(0).getImagePropertiesAnnotation().getDominantColors().getColors();
+        com.google.api.services.vision.v1.model.Color col;
+        Color colorHex;
+
+        for (ColorInfo color : colors)
+        {
+            col = color.getColor();
+            String co = Integer.toHexString(Color.rgb(Math.round(col.getRed()), Math.round(col.getGreen()), Math.round(col.getBlue())));
+            co = "#"+co.substring(2)+";";
+            imageColors += Math.round(color.getScore()*100) + co;
+        }
+
+        // Remove last ; in string
+        imageColors = imageColors.substring(0, imageColors.length()-1);
+
         if (labels != null) {
             for (EntityAnnotation label : labels) {
-                imageLabels += String.format("%.0f%%: %s", label.getScore()*100, label.getDescription());
+                imageLabels += String.format("%d%%: %s", Math.round(label.getScore()*100), label.getDescription());
                 imageLabels += '\n';
             }
         } else {

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.g10.lemur.Vision.Vision.imageColors;
 import static com.g10.lemur.Vision.Vision.imageLabels;
 
 /**
@@ -36,7 +37,7 @@ public class VisionContent
         // Add some sample items.
         addItem(createVisionItem("Labels", imageLabels, "Labels"));
         addItem(createVisionItem("Safe Search", "Super Safe", "Safe"));
-        addItem(createVisionItem("Colors", "21#1B1B1D;17#EDEDEC;4#6A4A3B;22#f44b42", "Colors"));
+        addItem(createVisionItem("Colors", imageColors, "Colors"));
     }
 
     private static void addItem(VisionItem item) {
