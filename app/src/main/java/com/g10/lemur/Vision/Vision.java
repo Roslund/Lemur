@@ -43,6 +43,7 @@ import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
 import com.google.api.services.vision.v1.model.ColorInfo;
 import com.google.api.services.vision.v1.model.EntityAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
+import com.google.api.services.vision.v1.model.SafeSearchAnnotation;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -64,6 +65,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
     protected static final String CLOUD_VISION_API_KEY = "AIzaSyCpvWMJr9ocKAA5vaRBZpY6AzVrcnKOxFo";
     public static String imageLabels;
     public static String imageColors;
+    public static String imageSafeSearch;
     ProgressDialog uploading;
 
 
@@ -88,6 +90,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         image = null;
         imageLabels = "";
         imageColors = "";
+        imageSafeSearch = "";
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -358,6 +361,10 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
                             imageProp.setType("IMAGE_PROPERTIES");
                             //imageProp.setMaxResults(5);
                             add(imageProp);
+
+                            Feature safeSearch = new Feature();
+                            safeSearch.setType("SAFE_SEARCH_DETECTION");
+                            add(safeSearch);
                         }});
 
                         // Add the list of one thing to the request
@@ -397,11 +404,12 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
 
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
         List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
-        List<ColorInfo> test = response.getResponses().get(0).getImagePropertiesAnnotation().getDominantColors().getColors();
         List<ColorInfo> colors = response.getResponses().get(0).getImagePropertiesAnnotation().getDominantColors().getColors();
+        SafeSearchAnnotation safeSearch = response.getResponses().get(0).getSafeSearchAnnotation();
         com.google.api.services.vision.v1.model.Color col;
         Color colorHex;
 
+        // Fix the colors
         for (ColorInfo color : colors)
         {
             col = color.getColor();
@@ -410,9 +418,10 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
             imageColors += Math.round(color.getScore()*100) + co;
         }
 
-        // Remove last ; in string
+        // Remove last ; in colors string
         imageColors = imageColors.substring(0, imageColors.length()-1);
 
+        // Fix the labels
         if (labels != null) {
             for (EntityAnnotation label : labels) {
                 imageLabels += String.format("%d%%: %s", Math.round(label.getScore()*100), label.getDescription());
@@ -421,6 +430,12 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         } else {
             imageLabels += "nothing";
         }
+
+        // Fix Safe Search
+        imageSafeSearch += "Adult: " + safeSearch.getAdult() + '\n';
+        imageSafeSearch += "Medical: " + safeSearch.getMedical() + '\n';
+        imageSafeSearch += "Spoof: " + safeSearch.getSpoof() + '\n';
+        imageSafeSearch += "Violence: " + safeSearch.getViolence() + '\n';
 
         return imageLabels;
     }

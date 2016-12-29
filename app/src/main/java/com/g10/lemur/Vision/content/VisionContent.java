@@ -7,6 +7,7 @@ import java.util.Map;
 
 import static com.g10.lemur.Vision.Vision.imageColors;
 import static com.g10.lemur.Vision.Vision.imageLabels;
+import static com.g10.lemur.Vision.Vision.imageSafeSearch;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -36,7 +37,7 @@ public class VisionContent
     {
         // Add some sample items.
         addItem(createVisionItem("Labels", imageLabels, "Labels"));
-        addItem(createVisionItem("Safe Search", "Super Safe", "Safe"));
+        addItem(createVisionItem("Safe Search", imageSafeSearch, "Safe"));
         addItem(createVisionItem("Colors", imageColors, "Colors"));
     }
 
