@@ -6,6 +6,6 @@
     android:name="com.example.andre.vision.CardFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="8dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.g10.lemur.Vision.Vision"
-    tools:listitem="@layout/vision_fragment_card" />
+    tools:context="com.g10.lemur.Vision.Vision"/>

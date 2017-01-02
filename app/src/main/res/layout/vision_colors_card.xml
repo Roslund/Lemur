@@ -4,36 +4,33 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="8dp"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:minHeight="250dp"
+    android:layout_height="270dp"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="2dp"
+    android:clickable="false"
     >
     <!-- ^ layout_height should be wrap_content -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="12"
         android:orientation="vertical">
         <TextView
             android:id="@+id/id"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="55dp"
             android:background="#4DD0E1"
             android:textColor="#fff"
             android:gravity="center_vertical"
-            android:textSize="24sp"
-            android:paddingLeft="8dp"
-            android:text="Labels"/>
+            android:textSize="17sp"
+            android:paddingLeft="12dp"
+            android:text="Placeholder color text"/>
 
         <LinearLayout
             android:id="@+id/colorsCard"
-            android:layout_weight="10"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="215dp">
 
         </LinearLayout>
     </LinearLayout>

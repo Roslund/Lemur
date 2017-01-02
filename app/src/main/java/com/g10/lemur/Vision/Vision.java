@@ -215,12 +215,15 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
     public void onListFragmentInteraction(VisionContent.VisionItem item)
     {
         it = item;
+
+        // If you wanna be able to click the cards.
+        /*
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragment = new VisionAction();
         fragmentTransaction.replace(R.id.fragment_placeholder, fragment);
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
     }
 
     protected void openCamera(View view)
