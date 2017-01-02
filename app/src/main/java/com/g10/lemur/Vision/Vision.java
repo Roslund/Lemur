@@ -368,6 +368,10 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
                             Feature safeSearch = new Feature();
                             safeSearch.setType("SAFE_SEARCH_DETECTION");
                             add(safeSearch);
+
+                            Feature landmark = new Feature();
+                            landmark.setType("LANDMARK_DETECTION");
+                            add(landmark);
                         }});
 
                         // Add the list of one thing to the request
@@ -410,7 +414,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         List<ColorInfo> colors = response.getResponses().get(0).getImagePropertiesAnnotation().getDominantColors().getColors();
         SafeSearchAnnotation safeSearch = response.getResponses().get(0).getSafeSearchAnnotation();
         com.google.api.services.vision.v1.model.Color col;
-        Color colorHex;
+        List<EntityAnnotation> landmarks = response.getResponses().get(0).getLandmarkAnnotations();
 
         // Fix the colors
         for (ColorInfo color : colors)
@@ -439,6 +443,12 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         imageSafeSearch += "Medical: " + safeSearch.getMedical() + '\n';
         imageSafeSearch += "Spoof: " + safeSearch.getSpoof() + '\n';
         imageSafeSearch += "Violence: " + safeSearch.getViolence() + '\n';
+
+        for (EntityAnnotation landmark : landmarks)
+        {
+            Log.e("SCORE", ""+landmark.getScore());
+            Log.e("DESC", ""+landmark.getDescription());
+        }
 
         return imageLabels;
     }
