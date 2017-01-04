@@ -97,4 +97,51 @@
     <string name="small_text_view"><u>Reset Values</u></string>
     <string name="decibel_cardmenu">Decibel (dB)</string>
 
+
+    <!-- Help menu strings -->
+    <string name="empty_string"></string>
+    <string name="lemur_helpText">
+        \nLemur is the result of a four people group project in the course Mobile Applications, taken in Västerås on
+        Mälardalen University.
+        \n\nThe objective was to create a working application for a mobile device. One requirement was
+        to use at least one of the phones sensors. For a higher grade the application also had to be
+        fully operational without bugs and with a user friendly interface.
+        \n\nLemur is a fun measurement tool right in your phone. We took the requirement for <b>at least</b>
+        one sensor to the next level. We decided to use as many as we had time to implement. Lemur allows
+        the user to apply the phones different sensors and features for other things than was originally intended.
+        Want to measure the sound intensity in the room? Or maybe see how high above the sea level you are
+        at the moment? <b>Lemur can do it.</b>
+        \n\n<b>Lemur is not meant to be used as a serious measurement tool and might not always display the exact value.</b>
+
+    </string>
+    <string name="accelerometer_helpText">
+        Soon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+    </string>
+    <string name="altimeter_helpText">
+        Soon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+    </string>
+    <string name="decibel_helpText">Decibel will measure the sound intensity recorded by the microphone and display it in decibel.
+        \n\n<b>Decibel is not meant to be used as a serious measurement tool and might not display the exact right value.</b>
+        \n\nSince different phones can have a wide variety of different microphones implemented this function
+        can only display an estimate that might differ from phone to phone. To be sure the value is right
+        each phone would need to have the exact same hardware installed or be individually calibrated by more
+        advanced equipment to be sure that they measure exactly right.
+    </string>
+    <string name="vision_helpText">
+        Soon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+        \nSoon to be AWESOME, descriptive and helpful content!
+    </string>
+
+
 </resources>

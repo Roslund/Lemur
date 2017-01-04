@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,10 +14,98 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.g10.lemur.Help.Help"
     tools:showIn="@layout/activity_help">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Help"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/helpLemur"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Lemur"
+            android:textColor="#ffffff"
+            android:background="@color/colorPrimary"
+            android:textSize="17sp"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawableEnd="@mipmap/ic_white_downarrow"/>
+        <TextView
+            android:id="@+id/helpLemurText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/lemur_helpText"/>
+        <TextView
+            android:id="@+id/helpAccelerometer"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Accelerometer"
+            android:textColor="#ffffff"
+            android:background="@color/colorAccelerometerMain"
+            android:textSize="17sp"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawableEnd="@mipmap/ic_white_uparrow"/>
+        <TextView
+            android:id="@+id/helpAccelerometerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"/>
+        <TextView
+            android:id="@+id/helpAltimeter"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Altimeter"
+            android:textColor="#ffffff"
+            android:background="@color/colorAltimeterMain"
+            android:textSize="17sp"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawableEnd="@mipmap/ic_white_uparrow"/>
+        <TextView
+            android:id="@+id/helpAltimeterText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"/>
+        <TextView
+            android:id="@+id/helpDecibel"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Decibel"
+            android:textColor="#ffffff"
+            android:background="@color/colorDecibelMain"
+            android:textSize="17sp"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawableEnd="@mipmap/ic_white_uparrow"/>
+        <TextView
+            android:id="@+id/helpDecibelText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"/>
+        <TextView
+            android:id="@+id/helpVision"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Vision"
+            android:textColor="#ffffff"
+            android:background="@color/colorVisionMain"
+            android:textSize="17sp"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawableEnd="@mipmap/ic_white_uparrow"/>
+        <TextView
+            android:id="@+id/helpVisionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"/>
+
+    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

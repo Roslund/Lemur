@@ -118,7 +118,7 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
                     while (runner != null){
                         try{
                             Thread.sleep(100);
-                            Log.i("DecibelThread", "Tock");
+                            //Log.i("DecibelThread", "Tock");   // For debug purposes
                         } catch (InterruptedException e){ }
                         mHandler.post(updater);
                     }

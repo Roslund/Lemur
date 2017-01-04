@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.g10.lemur.Accelerometer.Accelerometer;
 import com.g10.lemur.Altimeter.Altimeter;
@@ -19,9 +22,36 @@ import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
 import com.g10.lemur.Vision.Vision;
 
+import org.w3c.dom.Text;
+
+import static android.support.v7.appcompat.R.styleable.View;
+
 public class Help extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     NavigationView navigationView;
+
+    // Used to remember the state of the TextViews (true = text displayed, false = no text displayed)
+    private boolean helpLemurState;
+    private boolean helpAccelerometerState;
+    private boolean helpAltimeterState;
+    private boolean helpDecibelState;
+    private boolean helpVisionState;
+
+    TextView helpLemur;
+    TextView helpLemurText;
+
+    TextView helpAccelerometer;
+    TextView helpAccelerometerText;
+
+    TextView helpAltimeter;
+    TextView helpAltimeterText;
+
+    TextView helpDecibel;
+    TextView helpDecibelText;
+
+    TextView helpVision;
+    TextView helpVisionText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,6 +72,131 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
 
         // Set the current activity as marked in the menu
         navigationView.setCheckedItem(R.id.menuHelp);
+
+        helpLemurState = true;
+        helpAccelerometerState = false;
+        helpAltimeterState = false;
+        helpDecibelState = false;
+        helpVisionState = false;
+
+        // Get textViews that need to be changed
+        helpLemur = (TextView)findViewById(R.id.helpLemur);
+        helpLemurText = (TextView)findViewById(R.id.helpLemurText);
+
+        helpAccelerometer = (TextView)findViewById(R.id.helpAccelerometer);
+        helpAccelerometerText = (TextView)findViewById(R.id.helpAccelerometerText);
+
+        helpAltimeter = (TextView)findViewById(R.id.helpAltimeter);
+        helpAltimeterText = (TextView)findViewById(R.id.helpAltimeterText);
+
+        helpDecibel = (TextView)findViewById(R.id.helpDecibel);
+        helpDecibelText = (TextView)findViewById(R.id.helpDecibelText);
+
+        helpVision = (TextView)findViewById(R.id.helpVision);
+        helpVisionText = (TextView)findViewById(R.id.helpVisionText);
+
+        helpLemur.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                helpLemurChangeState();
+            }
+        });
+        helpAccelerometer.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                helpAccelerometerChangeState();
+            }
+        });
+        helpAltimeter.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                helpAltimeterChangeState();
+            }
+        });
+        helpDecibel.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                helpDecibelChangeState();
+            }
+        });
+        helpVision.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                helpVisionChangeState();
+            }
+        });
+    }
+
+    public void helpLemurChangeState(){
+        if(helpLemurState){
+            // Remove text
+            helpLemur.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
+            helpLemurText.setText(R.string.empty_string);
+
+        }
+        else{
+            // Show text
+            helpLemur.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
+            helpLemurText.setText(R.string.lemur_helpText);
+        }
+        helpLemurState = !helpLemurState;
+
+    }
+    public void helpAccelerometerChangeState(){
+        if(helpAccelerometerState){
+            // Remove text
+            helpAccelerometer.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
+            helpAccelerometerText.setText(R.string.empty_string);
+        }
+        else{
+            // Show text
+            helpAccelerometer.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
+            helpAccelerometerText.setText(R.string.accelerometer_helpText);
+        }
+        helpAccelerometerState = !helpAccelerometerState;
+
+    }
+    public void helpAltimeterChangeState(){
+        if(helpAltimeterState){
+            // Remove text
+            helpAltimeter.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
+            helpAltimeterText.setText(R.string.empty_string);
+        }
+        else{
+            // Show text
+            helpAltimeter.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
+            helpAltimeterText.setText(R.string.altimeter_helpText);
+        }
+        helpAltimeterState = !helpAltimeterState;
+
+    }
+    public void helpDecibelChangeState(){
+        if(helpDecibelState){
+            // Remove text
+            helpDecibel.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
+            helpDecibelText.setText(R.string.empty_string);
+        }
+        else{
+            // Show text
+            helpDecibel.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
+            helpDecibelText.setText(R.string.decibel_helpText);
+        }
+        helpDecibelState = !helpDecibelState;
+
+    }
+    public void helpVisionChangeState(){
+        if(helpVisionState){
+            // Remove text
+            helpVision.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
+            helpVisionText.setText(R.string.empty_string);
+        }
+        else{
+            // Show text
+            helpVision.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
+            helpVisionText.setText(R.string.vision_helpText);
+        }
+        helpVisionState = !helpVisionState;
+
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState)
