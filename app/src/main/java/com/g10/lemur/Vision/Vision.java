@@ -264,14 +264,14 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
                     MediaStore.Images.Media.getBitmap(getContentResolver(), uri),
                     1200);
         }
-        catch (IOException ex)
+        catch (Exception ex)
         {
             Log.e("image error", ex.getMessage());
         }
 
         if (image == null)
         {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), Vision.class);
             startActivity(intent);
         }
         else
