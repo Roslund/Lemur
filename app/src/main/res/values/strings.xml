@@ -97,6 +97,9 @@
     <string name="small_text_view"><u>Reset Values</u></string>
     <string name="decibel_cardmenu">Decibel (dB)</string>
 
+    <!-- Altimeter strings -->
+    <string name="altimeter_cardmenu">Altitude (MASL)</string>
+
 
     <!-- Help menu strings -->
     <string name="empty_string"></string>
