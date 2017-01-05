@@ -26,7 +26,6 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.DecimalFormat;
-import java.util.Calendar;
 import java.util.Random;
 
 public class Altimeter extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -158,10 +157,6 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

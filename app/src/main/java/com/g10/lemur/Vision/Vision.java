@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.g10.lemur.Accelerometer.Accelerometer;
 import com.g10.lemur.Altimeter.Altimeter;
 import com.g10.lemur.Decibel.Decibel;
+import com.g10.lemur.Help.Help;
 import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
@@ -102,7 +103,6 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
     public void onRestoreInstanceState(Bundle savedInstanceState)
     {
         super.onRestoreInstanceState(savedInstanceState);
-
         navigationView.setCheckedItem(R.id.menuVision);
     }
 
@@ -145,12 +145,6 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -169,9 +163,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         }
         else if (id == R.id.menuVision)
         {
-            // Go to Google Vision
-            intent = new Intent(this, Vision.class);
-            startActivity(intent);
+            // Stay here
         }
         else if (id == R.id.menuAlti)
         {
@@ -193,7 +185,9 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         }
         else if (id == R.id.menuHelp)
         {
-            // Stay here
+            // Go to help
+            intent = new Intent(this, Help.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuSettings)
         {
@@ -228,6 +222,9 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
 
     protected void openCamera(View view)
     {
+        if (image != null && !image.isRecycled())
+            image.recycle();
+
         // Filename
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = timeStamp + ".jpg";
@@ -249,6 +246,9 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
 
     protected void openGallery (View view)
     {
+        if (image != null && !image.isRecycled())
+            image.recycle();
+
         Intent galleryIntent = new Intent(Intent.ACTION_PICK);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, 0);
@@ -268,6 +268,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         {
             Log.e("image error", ex.getMessage());
         }
+
 
         if (image == null)
         {
@@ -378,7 +379,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
                             vi.images().annotate(batchAnnotateImagesRequest);
                     // Due to a bug: requests to Vision API containing large images fail when GZipped.
                     annotateRequest.setDisableGZipContent(true);
-                    Log.d("TAG", "created Cloud Vision request object, sending request");
+                    Log.d("VISION", "created Cloud Vision request object, sending request");
 
                     BatchAnnotateImagesResponse response = annotateRequest.execute();
                     return convertResponseToString(response);
@@ -410,7 +411,6 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         List<ColorInfo> colors = response.getResponses().get(0).getImagePropertiesAnnotation().getDominantColors().getColors();
         SafeSearchAnnotation safeSearch = response.getResponses().get(0).getSafeSearchAnnotation();
         com.google.api.services.vision.v1.model.Color col;
-        List<EntityAnnotation> landmarks = response.getResponses().get(0).getLandmarkAnnotations();
 
         // Fix the colors
         for (ColorInfo color : colors)
@@ -440,6 +440,9 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         imageSafeSearch += "Spoof: " + safeSearch.getSpoof() + '\n';
         imageSafeSearch += "Violence: " + safeSearch.getViolence() + '\n';
 
+        Log.e("LABELS", imageLabels);
+
+        response.clear();
         return imageLabels;
     }
 }

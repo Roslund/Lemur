@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.g10.lemur.Accelerometer.Accelerometer;
 import com.g10.lemur.Altimeter.Altimeter;
@@ -21,10 +20,6 @@ import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
 import com.g10.lemur.Vision.Vision;
-
-import org.w3c.dom.Text;
-
-import static android.support.v7.appcompat.R.styleable.View;
 
 public class Help extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -246,10 +241,6 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
