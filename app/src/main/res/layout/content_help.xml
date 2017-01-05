@@ -13,7 +13,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.g10.lemur.Help.Help"
-    tools:showIn="@layout/activity_help">
+    tools:showIn="@layout/activity_help"
+    android:background="@color/activity_background">
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="wrap_content"
@@ -40,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:visibility="visible"
             android:text="@string/lemur_helpText"/>
         <TextView
             android:id="@+id/helpAccelerometer"
@@ -51,12 +53,15 @@
             android:textSize="17sp"
             android:padding="12dp"
             android:gravity="center_vertical"
-            android:drawableEnd="@mipmap/ic_white_uparrow"/>
+            android:layout_marginTop="8dp"
+            android:drawableEnd="@mipmap/ic_white_uparrow" />
         <TextView
             android:id="@+id/helpAccelerometerText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            android:text="@string/accelerometer_helpText"/>
         <TextView
             android:id="@+id/helpAltimeter"
             android:layout_width="match_parent"
@@ -67,12 +72,15 @@
             android:textSize="17sp"
             android:padding="12dp"
             android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
             android:drawableEnd="@mipmap/ic_white_uparrow"/>
         <TextView
             android:id="@+id/helpAltimeterText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            android:text="@string/altimeter_helpText"/>
         <TextView
             android:id="@+id/helpDecibel"
             android:layout_width="match_parent"
@@ -83,12 +91,15 @@
             android:textSize="17sp"
             android:padding="12dp"
             android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
             android:drawableEnd="@mipmap/ic_white_uparrow"/>
         <TextView
             android:id="@+id/helpDecibelText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            android:text="@string/decibel_helpText"/>
         <TextView
             android:id="@+id/helpVision"
             android:layout_width="match_parent"
@@ -99,12 +110,15 @@
             android:textSize="17sp"
             android:padding="12dp"
             android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
             android:drawableEnd="@mipmap/ic_white_uparrow"/>
         <TextView
             android:id="@+id/helpVisionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            android:text="@string/vision_helpText"/>
 
     </LinearLayout>
     </ScrollView>
