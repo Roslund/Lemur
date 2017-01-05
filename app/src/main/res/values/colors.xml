@@ -10,5 +10,5 @@
     <color name="colorAltimeterMain">#FF5722</color>
     <color name="colorAltimeter50">#FBE9E7</color>
     <color name="colorAccelerometerMain">#607D8B</color>
-    <color name="activity_background">#bdbdbd</color>
+    <color name="activity_background">#fafafa</color>
 </resources>
