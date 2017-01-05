@@ -1,4 +1,4 @@
-package com.g10.lemur.Altimeter;
+package com.g10.lemur.Speedometer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +14,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.g10.lemur.Accelerometer.Accelerometer;
+import com.g10.lemur.Altimeter.Altimeter;
 import com.g10.lemur.Decibel.Decibel;
 import com.g10.lemur.Help.Help;
 import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
-import com.g10.lemur.Speedometer.Speedometer;
 import com.g10.lemur.Vision.Vision;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -27,9 +27,10 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Random;
 
-public class Altimeter extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class Speedometer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     NavigationView navigationView;
 
@@ -45,7 +46,7 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_altimeter);
+        setContentView(R.layout.activity_speedometer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -59,7 +60,7 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         navigationView.setNavigationItemSelectedListener(this);
 
         // Set the current activity as marked in the menu
-        navigationView.setCheckedItem(R.id.menuAlti);
+        navigationView.setCheckedItem(R.id.menuSpeed);
 
         //Graph stuff
         textView = (TextView) findViewById(R.id.currentValueText);
@@ -158,6 +159,10 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings)
+        {
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -183,13 +188,13 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         }
         else if (id == R.id.menuAlti)
         {
-            // Stay here
+            // Go to altimeter
+            intent = new Intent(this, Altimeter.class);
+            startActivity(intent);
         }
         else if (id == R.id.menuSpeed)
         {
-            // Go to speedometer
-            intent = new Intent(this, Speedometer.class);
-            startActivity(intent);
+            // Stay Here
         }
         else if (id == R.id.menuAcc)
         {

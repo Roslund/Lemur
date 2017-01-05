@@ -27,6 +27,7 @@ import com.g10.lemur.Help.Help;
 import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
 import com.g10.lemur.Settings.Settings;
+import com.g10.lemur.Speedometer.Speedometer;
 import com.g10.lemur.Vision.Vision;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -329,6 +330,12 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
         {
             // Go to altimeter
             intent = new Intent(this, Altimeter.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.menuSpeed)
+        {
+            // Go to speedometer
+            intent = new Intent(this, Speedometer.class);
             startActivity(intent);
         }
         else if (id == R.id.menuAcc)

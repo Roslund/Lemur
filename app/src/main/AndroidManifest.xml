@@ -43,6 +43,11 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
+            android:name=".Speedometer.Speedometer"
+            android:label="Speedometer"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
             android:name=".Accelerometer.Accelerometer"
             android:label="@string/title_activity_accelerometer"
             android:theme="@style/AppTheme.NoActionBar"

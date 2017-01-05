@@ -17,6 +17,7 @@ import com.g10.lemur.Decibel.Decibel;
 import com.g10.lemur.Help.Help;
 import com.g10.lemur.MainActivity;
 import com.g10.lemur.R;
+import com.g10.lemur.Speedometer.Speedometer;
 import com.g10.lemur.Vision.Vision;
 
 public class Settings extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -116,6 +117,12 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
         {
             // Go to altimeter
             intent = new Intent(this, Altimeter.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.menuSpeed)
+        {
+            // Go to speedometer
+            intent = new Intent(this, Speedometer.class);
             startActivity(intent);
         }
         else if (id == R.id.menuAcc)

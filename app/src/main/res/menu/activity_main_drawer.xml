@@ -29,6 +29,9 @@
         <item
             android:id="@+id/menuSound"
             android:title="Decibel"/>
+        <item
+            android:id="@+id/menuSpeed"
+            android:title="Speedometer"/>
 
         <item
             android:id="@+id/menuVision"
