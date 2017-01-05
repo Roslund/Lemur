@@ -62,7 +62,7 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         navigationView.setCheckedItem(R.id.menuAlti);
 
         //Graph stuff
-        textView = (TextView) findViewById(R.id.textView);
+        textView = (TextView) findViewById(R.id.currentValueText);
         graph = (GraphView) findViewById(R.id.graph);
         series = new LineGraphSeries<>();
         graph.addSeries(series);
