@@ -38,13 +38,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.DecimalFormat;
 
-import static com.g10.lemur.R.id.XGraph;
-import static com.g10.lemur.R.id.YDirectionIcon;
 import static com.g10.lemur.R.id.YGraph;
 import static com.g10.lemur.R.id.ZGraph;
-import static com.g10.lemur.R.id.mtextViewXTitle;
-import static com.g10.lemur.R.id.textView;
-import static com.g10.lemur.R.id.title;
 
 public class Accelerometer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener
 {
