@@ -32,7 +32,7 @@
                 android:layout_height="55dp"
                 android:text="@string/squared_symbolX"
                 android:textColor="#ffffff"
-                android:background="#607D8B"
+                android:background="@color/colorAccelerometerMain"
                 android:textSize="17sp"
                 android:padding="12dp"
                 android:gravity="center_vertical"
