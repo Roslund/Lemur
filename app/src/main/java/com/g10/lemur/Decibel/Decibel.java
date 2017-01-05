@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,8 +99,9 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
         mGraph = (GraphView) findViewById(R.id.graph);
         loadGraphView();
 
-        final TextView mDetailedViewText = (TextView) findViewById(R.id.smallTextView);
-        mDetailedViewText.setOnClickListener(new View.OnClickListener() {
+
+        final ImageView mRefreshImage = (ImageView) findViewById(R.id.refreshImageView);
+        mRefreshImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "Resetting Values",
@@ -108,6 +110,8 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
                 lowestVolume = 1000;
                 highValueTextView.setText("");
                 lowValueTextView.setText("");
+
+                series.resetData(new DataPoint[]{newDatapoint(currentVolume)});
             }
         });
 
@@ -237,7 +241,7 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
 
     // This is hard to calculate. Basically can't be done perfectly unless you have real calibrated Decibel equipment to use as reference.
     public int soundDb(){
-        double amp = 20 * Math.log10(getAmplitude() / 0.1);
+        double amp = 20 * Math.log10(getAmplitude() / 5);
         return  (int)amp;
     }
 
