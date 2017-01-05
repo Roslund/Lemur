@@ -368,10 +368,6 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
                             Feature safeSearch = new Feature();
                             safeSearch.setType("SAFE_SEARCH_DETECTION");
                             add(safeSearch);
-
-                            Feature landmark = new Feature();
-                            landmark.setType("LANDMARK_DETECTION");
-                            add(landmark);
                         }});
 
                         // Add the list of one thing to the request
@@ -443,12 +439,6 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         imageSafeSearch += "Medical: " + safeSearch.getMedical() + '\n';
         imageSafeSearch += "Spoof: " + safeSearch.getSpoof() + '\n';
         imageSafeSearch += "Violence: " + safeSearch.getViolence() + '\n';
-
-        for (EntityAnnotation landmark : landmarks)
-        {
-            Log.e("SCORE", ""+landmark.getScore());
-            Log.e("DESC", ""+landmark.getDescription());
-        }
 
         return imageLabels;
     }
