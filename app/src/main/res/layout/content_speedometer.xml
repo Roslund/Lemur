@@ -35,7 +35,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:text="@string/altimeter_cardmenu"
+                    android:text="Speed (m/s)"
                     android:textColor="#ffffff"
                     android:background="@color/colorAltimeterMain"
                     android:textSize="17sp"

@@ -1,6 +1,10 @@
 package com.g10.lemur.Altimeter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -9,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -29,7 +34,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.text.DecimalFormat;
 import java.util.Random;
 
-public class Altimeter extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class Altimeter extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LocationListener
 {
     NavigationView navigationView;
 
@@ -40,6 +45,10 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
     static GraphView graph;
     static LineGraphSeries<DataPoint> series;
     long activityCreateTime;
+
+    LocationManager locationManager;
+
+    double altitude = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -86,6 +95,19 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
             }
         });
 
+
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        try
+        {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            altitude = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getAltitude();
+        }
+        catch (SecurityException e)
+        {
+            Log.i("Exception", "location security exception");
+        }
+
         activityCreateTime = System.currentTimeMillis();
     }
 
@@ -108,10 +130,11 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
             @Override
             public void run()
             {
-                int yValue = randomYValue();
-                textView.setText(String.valueOf(yValue));
-                series.appendData(newDatapoint(yValue), true, 100);
-                graph.onDataChanged(true, false);
+                textView.setText(String.valueOf(altitude));
+
+                double timeSince = System.currentTimeMillis() - activityCreateTime;
+                series.appendData(new DataPoint(timeSince, altitude), true, 100);
+
                 mHandler.postDelayed(this, 1000);
             }
         };
@@ -221,16 +244,23 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         return true;
     }
 
-    private int randomYValue()
-    {
-        Random random = new Random();
-        return random.nextInt(19);
+    @Override
+    public void onLocationChanged(Location location) {
+        this.altitude = location.getAltitude();
     }
 
-    private DataPoint newDatapoint(int y)
-    {
-        double timeSince = System.currentTimeMillis() - activityCreateTime;
-        return new DataPoint(timeSince, y);
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
     }
 
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
 }

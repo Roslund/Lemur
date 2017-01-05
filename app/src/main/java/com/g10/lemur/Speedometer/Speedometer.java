@@ -1,6 +1,10 @@
 package com.g10.lemur.Speedometer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -9,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -30,7 +35,7 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Random;
 
-public class Speedometer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class Speedometer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LocationListener
 {
     NavigationView navigationView;
 
@@ -41,6 +46,8 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
     static GraphView graph;
     static LineGraphSeries<DataPoint> series;
     long activityCreateTime;
+
+    LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -86,6 +93,17 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
                 }
             }
         });
+
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        try
+        {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        }
+        catch (SecurityException e)
+        {
+            Log.i("Exception", "location security exception");
+        }
 
         activityCreateTime = System.currentTimeMillis();
     }
@@ -159,10 +177,6 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -238,4 +252,28 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
         return new DataPoint(timeSince, y);
     }
 
+
+
+    //GPS Speed stuff
+    @Override
+    public void onLocationChanged(Location location)
+    {
+        Log.i("speed: ", String.valueOf(location.getSpeed()));
+        Log.i("Altitude: ", String.valueOf(location.getAltitude()));
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
 }
