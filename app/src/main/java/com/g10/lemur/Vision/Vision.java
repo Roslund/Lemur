@@ -384,9 +384,9 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
                     return convertResponseToString(response);
 
                 } catch (GoogleJsonResponseException e) {
-                    Log.d("TAG", "failed to make API request because " + e.getContent());
+                    Log.d("VISION", "failed to make API request because " + e.getContent());
                 } catch (IOException e) {
-                    Log.d("TAG", "failed to make API request because of other IOException " +
+                    Log.d("VISION", "failed to make API request because of other IOException " +
                             e.getMessage());
                 }
                 return "Cloud Vision API request failed. Check logs for details.";
