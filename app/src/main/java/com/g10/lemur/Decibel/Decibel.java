@@ -200,7 +200,7 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
             }
             try {
                 mRecorder.start();
-            } catch (java.lang.SecurityException e) {
+            } catch (Exception e) {
                 android.util.Log.e("[Monkey]", "SecurityException: " +
                         android.util.Log.getStackTraceString(e));
             }

@@ -131,13 +131,13 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
         if(helpLemurState){
             // Remove text
             helpLemur.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
-            helpLemurText.setText(R.string.empty_string);
+            helpLemurText.setVisibility(helpLemurText.GONE);
 
         }
         else{
             // Show text
             helpLemur.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
-            helpLemurText.setText(R.string.lemur_helpText);
+            helpLemurText.setVisibility(helpLemurText.VISIBLE);
         }
         helpLemurState = !helpLemurState;
 
@@ -146,12 +146,12 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
         if(helpAccelerometerState){
             // Remove text
             helpAccelerometer.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
-            helpAccelerometerText.setText(R.string.empty_string);
+            helpAccelerometerText.setVisibility(helpAccelerometerText.GONE);
         }
         else{
             // Show text
             helpAccelerometer.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
-            helpAccelerometerText.setText(R.string.accelerometer_helpText);
+            helpAccelerometerText.setVisibility(helpAccelerometerText.VISIBLE);
         }
         helpAccelerometerState = !helpAccelerometerState;
 
@@ -160,12 +160,12 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
         if(helpAltimeterState){
             // Remove text
             helpAltimeter.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
-            helpAltimeterText.setText(R.string.empty_string);
+            helpAltimeterText.setVisibility(helpAltimeterText.GONE);
         }
         else{
             // Show text
             helpAltimeter.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
-            helpAltimeterText.setText(R.string.altimeter_helpText);
+            helpAltimeterText.setVisibility(helpAltimeterText.VISIBLE);
         }
         helpAltimeterState = !helpAltimeterState;
 
@@ -174,12 +174,12 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
         if(helpDecibelState){
             // Remove text
             helpDecibel.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
-            helpDecibelText.setText(R.string.empty_string);
+            helpDecibelText.setVisibility(helpDecibelText.GONE);
         }
         else{
             // Show text
             helpDecibel.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
-            helpDecibelText.setText(R.string.decibel_helpText);
+            helpDecibelText.setVisibility(helpDecibelText.VISIBLE);
         }
         helpDecibelState = !helpDecibelState;
 
@@ -188,12 +188,12 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
         if(helpVisionState){
             // Remove text
             helpVision.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
-            helpVisionText.setText(R.string.empty_string);
+            helpVisionText.setVisibility(helpVisionText.GONE);
         }
         else{
             // Show text
             helpVision.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
-            helpVisionText.setText(R.string.vision_helpText);
+            helpVisionText.setVisibility(helpVisionText.VISIBLE);
         }
         helpVisionState = !helpVisionState;
 
