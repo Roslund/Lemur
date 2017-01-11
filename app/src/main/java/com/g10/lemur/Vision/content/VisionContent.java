@@ -24,12 +24,12 @@ public class VisionContent
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<VisionItem> ITEMS = new ArrayList<VisionItem>();
+    public static List<VisionItem> ITEMS = new ArrayList<VisionItem>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, VisionItem> ITEM_MAP = new HashMap<String, VisionItem>();
+    public static Map<String, VisionItem> ITEM_MAP = new HashMap<String, VisionItem>();
 
 
 
@@ -60,10 +60,10 @@ public class VisionContent
      * A dummy item representing a piece of content.
      */
     public static class VisionItem {
-        public final String id;
-        public final String title;
-        public final String content;
-        public final String type;
+        public String id;
+        public String title;
+        public String content;
+        public String type;
 
         public VisionItem(String id, String title, String content, String type) {
             this.id = id;

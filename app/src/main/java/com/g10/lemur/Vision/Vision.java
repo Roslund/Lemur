@@ -69,6 +69,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
     public static String imageColors;
     public static String imageSafeSearch;
     ProgressDialog uploading;
+    FragmentManager fragmentManager;
 
 
     @Override
@@ -94,7 +95,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         imageColors = "";
         imageSafeSearch = "";
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragment = new Choice();
         fragmentTransaction.add(R.id.fragment_placeholder, fragment);
@@ -112,6 +113,9 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
         super.onResume();
 
         navigationView.setCheckedItem(R.id.menuVision);
+        imageLabels = "";
+        imageColors = "";
+        imageSafeSearch = "";
     }
 
     @Override
@@ -403,11 +407,11 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
             protected void onPostExecute(String result) {
                 uploading.dismiss();
 
-                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragment = new CardFragment();
                 fragmentTransaction.replace(R.id.fragment_placeholder, fragment);
-                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack("thing");
                 fragmentTransaction.commitAllowingStateLoss();
             }
         }.execute();
@@ -430,6 +434,7 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
 
         // Remove last ; in colors string
         imageColors = imageColors.substring(0, imageColors.length()-1);
+        VisionContent.ITEMS.get(2).content = imageColors;
 
         // Fix the labels
         if (labels != null) {
@@ -441,11 +446,15 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
             imageLabels += "nothing";
         }
 
+        VisionContent.ITEMS.get(0).content = imageLabels;
+
         // Fix Safe Search
         imageSafeSearch += "Adult: " + safeSearch.getAdult() + '\n';
         imageSafeSearch += "Medical: " + safeSearch.getMedical() + '\n';
         imageSafeSearch += "Spoof: " + safeSearch.getSpoof() + '\n';
         imageSafeSearch += "Violence: " + safeSearch.getViolence() + '\n';
+
+        VisionContent.ITEMS.get(1).content = imageSafeSearch;
 
         Log.e("LABELS", imageLabels);
 

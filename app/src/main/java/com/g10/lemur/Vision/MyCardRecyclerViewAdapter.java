@@ -23,8 +23,8 @@ import java.util.List;
  */
 public class MyCardRecyclerViewAdapter extends RecyclerView.Adapter<MyCardRecyclerViewAdapter.ViewHolder> {
 
-    private final List<VisionItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    public List<VisionItem> mValues;
+    public OnListFragmentInteractionListener mListener;
 
     public MyCardRecyclerViewAdapter(List<VisionItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
@@ -34,6 +34,7 @@ public class MyCardRecyclerViewAdapter extends RecyclerView.Adapter<MyCardRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
+
         if (viewType == 1)
         {
             view = LayoutInflater.from(parent.getContext())
@@ -106,6 +107,7 @@ public class MyCardRecyclerViewAdapter extends RecyclerView.Adapter<MyCardRecycl
                 holder.colorsLL.addView(im, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, Float.valueOf(percent)));
             }
             holder.colorsLL.setWeightSum(sum);
+
         }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -126,11 +128,12 @@ public class MyCardRecyclerViewAdapter extends RecyclerView.Adapter<MyCardRecycl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView cardTitle;
-        public final LinearLayout colorsLL;
-        public final TextView cardContent;
+        public View mView;
+        public TextView cardTitle;
+        public LinearLayout colorsLL;
+        public TextView cardContent;
         public VisionItem mItem;
+
 
         public ViewHolder(View view) {
             super(view);
