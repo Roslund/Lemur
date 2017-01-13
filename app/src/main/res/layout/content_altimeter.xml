@@ -37,7 +37,7 @@
                     android:layout_height="55dp"
                     android:text="@string/altimeter_cardmenu"
                     android:textColor="#ffffff"
-                    android:background="@color/colorAltimeterMain"
+                    android:background="@color/colorAltimeter700"
                     android:textSize="17sp"
                     android:padding="12dp"
                     android:gravity="center_vertical"

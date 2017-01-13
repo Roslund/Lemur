@@ -37,7 +37,7 @@
                     android:layout_height="55dp"
                     android:text="Speed (m/s)"
                     android:textColor="#ffffff"
-                    android:background="@color/colorAltimeterMain"
+                    android:background="@color/colorSpeedometer700"
                     android:textSize="17sp"
                     android:padding="12dp"
                     android:gravity="center_vertical"
