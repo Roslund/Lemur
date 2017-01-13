@@ -106,11 +106,14 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
         try
         {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            speed = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getSpeed();
         }
         catch (SecurityException e)
         {
             Log.i("Exception", "location security exception");
         }
+        lowestSpeed = speed;
+        highestSpeed = speed;
 
         currentValueTextView = (TextView) findViewById(R.id.currentValueText);
         highValueTextView = (TextView) findViewById(R.id.highValueText);
