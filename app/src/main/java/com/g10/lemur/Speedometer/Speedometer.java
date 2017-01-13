@@ -42,10 +42,18 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
     private final Handler mHandler = new Handler();
     private Runnable mTimer;
 
-    TextView textView;
+
     static GraphView graph;
     static LineGraphSeries<DataPoint> series;
     long activityCreateTime;
+
+    TextView currentValueTextView;
+    TextView highValueTextView;
+    TextView lowValueTextView;
+
+    float speed = 0;
+    float highestSpeed = 0;
+    float lowestSpeed = 0;
 
     LocationManager locationManager;
 
@@ -70,7 +78,6 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
         navigationView.setCheckedItem(R.id.menuSpeed);
 
         //Graph stuff
-        textView = (TextView) findViewById(R.id.currentValueText);
         graph = (GraphView) findViewById(R.id.graph);
         series = new LineGraphSeries<>();
         graph.addSeries(series);
@@ -105,6 +112,10 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
             Log.i("Exception", "location security exception");
         }
 
+        currentValueTextView = (TextView) findViewById(R.id.currentValueText);
+        highValueTextView = (TextView) findViewById(R.id.highValueText);
+        lowValueTextView = (TextView) findViewById(R.id.lowValueText);
+
         activityCreateTime = System.currentTimeMillis();
     }
 
@@ -112,7 +123,7 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
     {
         super.onRestoreInstanceState(savedInstanceState);
 
-        navigationView.setCheckedItem(R.id.menuAlti);
+        navigationView.setCheckedItem(R.id.menuSpeed);
     }
 
     @Override
@@ -120,17 +131,29 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
     {
         super.onResume();
 
-        navigationView.setCheckedItem(R.id.menuAlti);
+        navigationView.setCheckedItem(R.id.menuSpeed);
 
         mTimer = new Runnable()
         {
             @Override
             public void run()
             {
-                int yValue = randomYValue();
-                textView.setText(String.valueOf(yValue));
-                series.appendData(newDatapoint(yValue), true, 100);
-                graph.onDataChanged(true, false);
+
+                if(speed>highestSpeed){
+                    highValueTextView.setText(String.valueOf(speed));
+                    highestSpeed = speed;
+                }
+
+                if(speed<lowestSpeed){
+                    lowValueTextView.setText(String.valueOf(speed));
+                    lowestSpeed = speed;
+                }
+
+                currentValueTextView.setText(String.valueOf(speed));
+
+                double timeSince = System.currentTimeMillis() - activityCreateTime;
+                series.appendData(new DataPoint(timeSince, speed), true, 100);
+
                 mHandler.postDelayed(this, 1000);
             }
         };
@@ -258,8 +281,7 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
     @Override
     public void onLocationChanged(Location location)
     {
-        Log.i("speed: ", String.valueOf(location.getSpeed()));
-        Log.i("Altitude: ", String.valueOf(location.getAltitude()));
+        this.speed = location.getSpeed();
     }
 
     @Override

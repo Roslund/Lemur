@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity
     public void launchActivity(View view)
     {
         View cardAcc = findViewById(R.id.card_view_accelerometer);
-        View cardSpe = findViewById(R.id.card_view_Speedometer);
+        View cardAlt = findViewById(R.id.card_view_Altimeter);
         View cardDec = findViewById(R.id.card_view_Decibel);
         View cardVis = findViewById(R.id.card_view_Vision);
         if(view == cardAcc)
@@ -167,8 +167,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this,Accelerometer.class);
             startActivity(intent);
         }
-        else if(view == cardSpe){
-            Intent intent = new Intent(this,Speedometer.class);
+        else if(view == cardAlt){
+            Intent intent = new Intent(this,Altimeter.class);
             startActivity(intent);
         }
         else if(view == cardVis){

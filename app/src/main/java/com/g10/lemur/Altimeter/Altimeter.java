@@ -41,14 +41,21 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
     private final Handler mHandler = new Handler();
     private Runnable mTimer;
 
-    TextView textView;
+
     static GraphView graph;
     static LineGraphSeries<DataPoint> series;
-    long activityCreateTime;
 
+    long activityCreateTime;
     LocationManager locationManager;
 
+    TextView currentValueTextView;
+    TextView highValueTextView;
+    TextView lowValueTextView;
+
     double altitude = 0;
+    double highestAltetude = -1000;
+    double lowestAltitude = 10000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -70,8 +77,8 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         // Set the current activity as marked in the menu
         navigationView.setCheckedItem(R.id.menuAlti);
 
+
         //Graph stuff
-        textView = (TextView) findViewById(R.id.currentValueText);
         graph = (GraphView) findViewById(R.id.graph);
         series = new LineGraphSeries<>();
         graph.addSeries(series);
@@ -108,6 +115,10 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
             Log.i("Exception", "location security exception");
         }
 
+        currentValueTextView = (TextView) findViewById(R.id.currentValueText);
+        highValueTextView = (TextView) findViewById(R.id.highValueText);
+        lowValueTextView = (TextView) findViewById(R.id.lowValueText);
+
         activityCreateTime = System.currentTimeMillis();
     }
 
@@ -130,7 +141,18 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
             @Override
             public void run()
             {
-                textView.setText(String.valueOf(altitude));
+
+                if(altitude>highestAltetude){
+                    highValueTextView.setText(String.valueOf(altitude));
+                    highestAltetude = altitude;
+                }
+
+                if(altitude<lowestAltitude){
+                    lowValueTextView.setText(String.valueOf(altitude));
+                    lowestAltitude = altitude;
+                }
+
+                currentValueTextView.setText(String.valueOf(altitude));
 
                 double timeSince = System.currentTimeMillis() - activityCreateTime;
                 series.appendData(new DataPoint(timeSince, altitude), true, 100);
