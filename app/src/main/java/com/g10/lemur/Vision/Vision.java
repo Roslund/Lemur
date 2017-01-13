@@ -434,7 +434,12 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
 
         // Remove last ; in colors string
         imageColors = imageColors.substring(0, imageColors.length()-1);
-        VisionContent.ITEMS.get(2).content = imageColors;
+        VisionContent.ITEMS.get(2).content = imageColors
+
+
+
+
+        ;
 
         // Fix the labels
         if (labels != null) {
