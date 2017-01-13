@@ -129,7 +129,8 @@ public class Vision extends AppCompatActivity implements NavigationView.OnNaviga
             drawer.closeDrawer(GravityCompat.START);
         } else
         {
-            super.onBackPressed();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 

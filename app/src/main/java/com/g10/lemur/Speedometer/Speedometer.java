@@ -35,7 +35,6 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.DecimalFormat;
-import java.util.Calendar;
 import java.util.Random;
 
 public class Speedometer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LocationListener
@@ -206,7 +205,8 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
             drawer.closeDrawer(GravityCompat.START);
         } else
         {
-            super.onBackPressed();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 

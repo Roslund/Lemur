@@ -6,8 +6,6 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -35,7 +33,6 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.DecimalFormat;
-import java.util.jar.Manifest;
 
 public class Decibel extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -295,7 +292,8 @@ public class Decibel extends AppCompatActivity implements NavigationView.OnNavig
             drawer.closeDrawer(GravityCompat.START);
         } else
         {
-            super.onBackPressed();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
