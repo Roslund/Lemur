@@ -25,7 +25,8 @@
             android:title="Accelerometer "/>
         <item
             android:id="@+id/menuAlti"
-            android:title="Altimeter"/>
+            android:title="Altimeter"
+            android:visible="false" />
             <!-- android:visible="false" -->
         <item
             android:id="@+id/menuSound"

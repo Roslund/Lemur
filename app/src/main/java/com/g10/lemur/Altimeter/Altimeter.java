@@ -16,7 +16,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.g10.lemur.Accelerometer.Accelerometer;
 import com.g10.lemur.Decibel.Decibel;
@@ -114,6 +117,22 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         {
             Log.i("Exception", "location security exception");
         }
+
+        final ImageView mRefreshImage = (ImageView) findViewById(R.id.refreshImageView);
+        mRefreshImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Resetting Values",
+                        Toast.LENGTH_SHORT).show();
+                highestAltetude = altitude;
+                lowestAltitude = altitude;
+                currentValueTextView.setText(String.valueOf(altitude));
+                highValueTextView.setText(String.valueOf(altitude));
+                lowValueTextView.setText(String.valueOf(altitude));
+
+                series.resetData(new DataPoint[]{newDatapoint(altitude)});
+            }
+        });
 
         currentValueTextView = (TextView) findViewById(R.id.currentValueText);
         highValueTextView = (TextView) findViewById(R.id.highValueText);
@@ -271,6 +290,12 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private DataPoint newDatapoint(double y)
+    {
+        double timeSince = System.currentTimeMillis() - activityCreateTime;
+        return new DataPoint(timeSince, y);
     }
 
     @Override
