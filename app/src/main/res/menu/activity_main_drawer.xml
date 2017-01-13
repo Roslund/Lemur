@@ -22,18 +22,17 @@
 
         <item
             android:id="@+id/menuAcc"
-            android:title="Accelerometer "/>
+            android:title="Accelerometer"/>
         <item
             android:id="@+id/menuAlti"
-            android:title="Altimeter"
-            android:visible="false" />
-            <!-- android:visible="false" -->
+            android:title="Altimeter"/>
         <item
             android:id="@+id/menuSound"
             android:title="Decibel"/>
         <item
             android:id="@+id/menuSpeed"
             android:title="Speedometer"/>
+        <!-- android:visible="false" -->
         <item
             android:id="@+id/menuVision"
             android:title="Vision"/>

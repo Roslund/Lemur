@@ -16,7 +16,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.g10.lemur.Accelerometer.Accelerometer;
 import com.g10.lemur.Altimeter.Altimeter;
@@ -113,6 +116,23 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
             Log.i("Exception", "location security exception");
         }
 
+        final ImageView mRefreshImage = (ImageView) findViewById(R.id.refreshImageView);
+        mRefreshImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Resetting Values",
+                        Toast.LENGTH_SHORT).show();
+                highestSpeed = speed;
+                lowestSpeed = speed;
+                currentValueTextView.setText(String.valueOf(speed) + " m/s");
+                highValueTextView.setText(String.valueOf(speed) + " m/s");
+                lowValueTextView.setText(String.valueOf(speed) + " m/s");
+
+
+                series.resetData(new DataPoint[]{newDatapoint(speed)});
+            }
+        });
+
 
         currentValueTextView = (TextView) findViewById(R.id.currentValueText);
         highValueTextView = (TextView) findViewById(R.id.highValueText);
@@ -120,9 +140,9 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
 
         lowestSpeed = speed;
         highestSpeed = speed;
-        currentValueTextView.setText(String.valueOf(speed));
-        highValueTextView.setText(String.valueOf(speed));
-        lowValueTextView.setText(String.valueOf(speed));
+        currentValueTextView.setText(String.valueOf(speed) + " m/s");
+        highValueTextView.setText(String.valueOf(speed) + " m/s");
+        lowValueTextView.setText(String.valueOf(speed) + " m/s");
 
         activityCreateTime = System.currentTimeMillis();
     }
@@ -148,16 +168,16 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
             {
 
                 if(speed>highestSpeed){
-                    highValueTextView.setText(String.valueOf(speed));
+                    highValueTextView.setText(String.valueOf(speed) + " m/s");
                     highestSpeed = speed;
                 }
 
                 if(speed<lowestSpeed){
-                    lowValueTextView.setText(String.valueOf(speed));
+                    lowValueTextView.setText(String.valueOf(speed) + " m/s");
                     lowestSpeed = speed;
                 }
 
-                currentValueTextView.setText(String.valueOf(speed));
+                currentValueTextView.setText(String.valueOf(speed) + " m/s");
 
                 double timeSince = System.currentTimeMillis() - activityCreateTime;
                 series.appendData(new DataPoint(timeSince, speed), true, 100);
@@ -277,7 +297,7 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
         return random.nextInt(19);
     }
 
-    private DataPoint newDatapoint(int y)
+    private DataPoint newDatapoint(float y)
     {
         double timeSince = System.currentTimeMillis() - activityCreateTime;
         return new DataPoint(timeSince, y);

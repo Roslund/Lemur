@@ -126,9 +126,9 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
                         Toast.LENGTH_SHORT).show();
                 highestAltetude = altitude;
                 lowestAltitude = altitude;
-                currentValueTextView.setText(String.valueOf(altitude));
-                highValueTextView.setText(String.valueOf(altitude));
-                lowValueTextView.setText(String.valueOf(altitude));
+                currentValueTextView.setText(String.valueOf(altitude) + " m");
+                highValueTextView.setText(String.valueOf(altitude) + " m");
+                lowValueTextView.setText(String.valueOf(altitude) + " m");
 
                 series.resetData(new DataPoint[]{newDatapoint(altitude)});
             }
@@ -141,9 +141,9 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
 
         highestAltetude = altitude;
         lowestAltitude = altitude;
-        currentValueTextView.setText(String.valueOf(altitude));
-        highValueTextView.setText(String.valueOf(altitude));
-        lowValueTextView.setText(String.valueOf(altitude));
+        currentValueTextView.setText(String.valueOf(altitude) + " m");
+        highValueTextView.setText(String.valueOf(altitude) + " m");
+        lowValueTextView.setText(String.valueOf(altitude) + " m");
 
         activityCreateTime = System.currentTimeMillis();
     }
@@ -169,16 +169,16 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
             {
 
                 if(altitude>highestAltetude){
-                    highValueTextView.setText(String.valueOf(altitude));
+                    highValueTextView.setText(String.valueOf(altitude) + " m");
                     highestAltetude = altitude;
                 }
 
                 if(altitude<lowestAltitude){
-                    lowValueTextView.setText(String.valueOf(altitude));
+                    lowValueTextView.setText(String.valueOf(altitude) + " m");
                     lowestAltitude = altitude;
                 }
 
-                currentValueTextView.setText(String.valueOf(altitude));
+                currentValueTextView.setText(String.valueOf(altitude) + " m");
 
                 double timeSince = System.currentTimeMillis() - activityCreateTime;
                 series.appendData(new DataPoint(timeSince, altitude), true, 100);
