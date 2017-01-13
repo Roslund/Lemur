@@ -63,10 +63,10 @@
             android:visibility="gone"
             android:text="@string/accelerometer_helpText"/>
         <TextView
-            android:id="@+id/helpAltimeter"
+            android:id="@+id/helpSpeedometer"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="Altimeter"
+            android:text="Speedometer"
             android:textColor="#ffffff"
             android:background="@color/colorAltimeterMain"
             android:textSize="17sp"
@@ -75,12 +75,12 @@
             android:layout_marginTop="8dp"
             android:drawableEnd="@mipmap/ic_white_uparrow"/>
         <TextView
-            android:id="@+id/helpAltimeterText"
+            android:id="@+id/helpSpeedometerText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:visibility="gone"
-            android:text="@string/altimeter_helpText"/>
+            android:text="@string/speedometer_helpText"/>
         <TextView
             android:id="@+id/helpDecibel"
             android:layout_width="match_parent"

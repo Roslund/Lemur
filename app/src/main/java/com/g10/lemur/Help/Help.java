@@ -29,7 +29,7 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
     // Used to remember the state of the TextViews (true = text displayed, false = no text displayed)
     private boolean helpLemurState;
     private boolean helpAccelerometerState;
-    private boolean helpAltimeterState;
+    private boolean helpSpeedometerState;
     private boolean helpDecibelState;
     private boolean helpVisionState;
 
@@ -39,8 +39,8 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
     TextView helpAccelerometer;
     TextView helpAccelerometerText;
 
-    TextView helpAltimeter;
-    TextView helpAltimeterText;
+    TextView helpSpeedometer;
+    TextView helpSpeedometerText;
 
     TextView helpDecibel;
     TextView helpDecibelText;
@@ -71,7 +71,7 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
 
         helpLemurState = true;
         helpAccelerometerState = false;
-        helpAltimeterState = false;
+        helpSpeedometerState = false;
         helpDecibelState = false;
         helpVisionState = false;
 
@@ -82,8 +82,8 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
         helpAccelerometer = (TextView)findViewById(R.id.helpAccelerometer);
         helpAccelerometerText = (TextView)findViewById(R.id.helpAccelerometerText);
 
-        helpAltimeter = (TextView)findViewById(R.id.helpAltimeter);
-        helpAltimeterText = (TextView)findViewById(R.id.helpAltimeterText);
+        helpSpeedometer = (TextView)findViewById(R.id.helpSpeedometer);
+        helpSpeedometerText = (TextView)findViewById(R.id.helpSpeedometerText);
 
         helpDecibel = (TextView)findViewById(R.id.helpDecibel);
         helpDecibelText = (TextView)findViewById(R.id.helpDecibelText);
@@ -91,31 +91,31 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
         helpVision = (TextView)findViewById(R.id.helpVision);
         helpVisionText = (TextView)findViewById(R.id.helpVisionText);
 
-        helpLemur.setOnClickListener(new android.view.View.OnClickListener() {
+        helpLemur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 helpLemurChangeState();
             }
         });
-        helpAccelerometer.setOnClickListener(new android.view.View.OnClickListener() {
+        helpAccelerometer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 helpAccelerometerChangeState();
             }
         });
-        helpAltimeter.setOnClickListener(new android.view.View.OnClickListener() {
+        helpSpeedometer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                helpAltimeterChangeState();
+                helpSpeedometerChangeState();
             }
         });
-        helpDecibel.setOnClickListener(new android.view.View.OnClickListener() {
+        helpDecibel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 helpDecibelChangeState();
             }
         });
-        helpVision.setOnClickListener(new android.view.View.OnClickListener() {
+        helpVision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 helpVisionChangeState();
@@ -152,18 +152,18 @@ public class Help extends AppCompatActivity implements NavigationView.OnNavigati
         helpAccelerometerState = !helpAccelerometerState;
 
     }
-    public void helpAltimeterChangeState(){
-        if(helpAltimeterState){
+    public void helpSpeedometerChangeState(){
+        if(helpSpeedometerState){
             // Remove text
-            helpAltimeter.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
-            helpAltimeterText.setVisibility(helpAltimeterText.GONE);
+            helpSpeedometer.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_uparrow,0);
+            helpSpeedometerText.setVisibility(helpSpeedometerText.GONE);
         }
         else{
             // Show text
-            helpAltimeter.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
-            helpAltimeterText.setVisibility(helpAltimeterText.VISIBLE);
+            helpSpeedometer.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_white_downarrow,0);
+            helpSpeedometerText.setVisibility(helpSpeedometerText.VISIBLE);
         }
-        helpAltimeterState = !helpAltimeterState;
+        helpSpeedometerState = !helpSpeedometerState;
 
     }
     public void helpDecibelChangeState(){
