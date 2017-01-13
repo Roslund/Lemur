@@ -112,12 +112,17 @@ public class Speedometer extends AppCompatActivity implements NavigationView.OnN
         {
             Log.i("Exception", "location security exception");
         }
-        lowestSpeed = speed;
-        highestSpeed = speed;
+
 
         currentValueTextView = (TextView) findViewById(R.id.currentValueText);
         highValueTextView = (TextView) findViewById(R.id.highValueText);
         lowValueTextView = (TextView) findViewById(R.id.lowValueText);
+
+        lowestSpeed = speed;
+        highestSpeed = speed;
+        currentValueTextView.setText(String.valueOf(speed));
+        highValueTextView.setText(String.valueOf(speed));
+        lowValueTextView.setText(String.valueOf(speed));
 
         activityCreateTime = System.currentTimeMillis();
     }

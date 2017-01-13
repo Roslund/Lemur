@@ -115,12 +115,16 @@ public class Altimeter extends AppCompatActivity implements NavigationView.OnNav
             Log.i("Exception", "location security exception");
         }
 
-        highestAltetude = altitude;
-        lowestAltitude = altitude;
-
         currentValueTextView = (TextView) findViewById(R.id.currentValueText);
         highValueTextView = (TextView) findViewById(R.id.highValueText);
         lowValueTextView = (TextView) findViewById(R.id.lowValueText);
+
+
+        highestAltetude = altitude;
+        lowestAltitude = altitude;
+        currentValueTextView.setText(String.valueOf(altitude));
+        highValueTextView.setText(String.valueOf(altitude));
+        lowValueTextView.setText(String.valueOf(altitude));
 
         activityCreateTime = System.currentTimeMillis();
     }
